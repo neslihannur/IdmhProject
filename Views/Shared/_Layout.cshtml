@@ -136,7 +136,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="projelerDropdown">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Architecture">Mimarlık</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Interior-achitecture">İç Mimarlık</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="InteriorArchitecture">İç Mimarlık</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -151,11 +151,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        <!-- Carousel Kontrolleri -->
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+        </nav>@if (ViewData["IsIndexPage"] != null && (bool)ViewData["IsIndexPage"])
+        {
+            <!-- Carousel Kontrolleri -->
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://media.istockphoto.com/id/1328633577/tr/foto%C4%9Fraf/low-angle-view-of-futuristic-modern-architecture-skyscraper-of-corporate-office-building.jpg?s=612x612&w=0&k=20&c=mebhbo7bs-XOVwsJl0vqE5nDjdvRtJT6JtFnRPmxby0=" class="d-block" alt="First Slide">
                 </div>
@@ -171,6 +171,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </a>
         </div>
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">

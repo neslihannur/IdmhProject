@@ -1,4 +1,4 @@
-using IdmhProject.Data;
+using IdmhProject.Data; // DbContext sýnýfýnýn bulunduðu namespace
 using Microsoft.EntityFrameworkCore;
 
 namespace IdmhProject
@@ -12,6 +12,7 @@ namespace IdmhProject
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // DbContext ayarlarý
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
@@ -21,11 +22,8 @@ namespace IdmhProject
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                // normalde IsDevelopment kontrolü içinde tutmak daha mantýklý
-                // çünkü özel hata sayfalarýný production ortamýnda göstermek isteriz
                 app.UseExceptionHandler("/Error/ServerError");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -43,9 +41,6 @@ namespace IdmhProject
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
-          
-
 
             app.Run();
         }
