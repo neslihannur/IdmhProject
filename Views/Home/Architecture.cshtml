@@ -1,17 +1,1 @@
-﻿@model IEnumerable<IdmhProject.Models.Project>
-
-@{
-    ViewData["Title"] = "Mimarlık Projeleri";
-}
-
-<div class="row">
-    @foreach (var project in Model)
-    {
-        <div class="col-md-3 mb-4">
-            <div class="project-card">
-                <img src="@project.Image" alt="@project.Title" class="project-image" />
-                <div class="project-title">@project.Title</div>
-            </div>
-        </div>
-    }
-</div>
+﻿
