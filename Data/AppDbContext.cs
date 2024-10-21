@@ -11,7 +11,7 @@ namespace IdmhProject.Data
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Category> Categoryies { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<ContactFormSubmission> ContactFormSubmissions { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectTeamMember> ProjectTeamMembers { get; set; } // Kavşak Tablosu
@@ -35,6 +35,11 @@ namespace IdmhProject.Data
                 .HasOne(pt => pt.TeamMember)
                 .WithMany(t => t.ProjectTeamMembers)
                 .HasForeignKey(pt => pt.TeamMemberId);
+
+            modelBuilder.Entity<Project>()
+               .HasOne(p => p.Categories)
+               .WithMany()
+               .HasForeignKey(p => p.CategoryId);
         }
     }
 }
