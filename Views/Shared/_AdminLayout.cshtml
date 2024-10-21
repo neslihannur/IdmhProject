@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IdmhProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IdmhProject.styles.css" asp-append-version="true" />
+    <style>
+        /* Üst Bar Stili */
+        .navbar {
+            background-color: #333; /* Arka plan rengi */
+        }
+
+        .bardaki-yazi {
+            font-family: 'Arial', sans-serif; /* Yazı tipi */
+            font-size: 18px; /* Yazı boyutu */
+            font-weight: normal; /* Yazı kalınlığı daha ince */
+            text-transform: uppercase; /* Büyük harf */
+            letter-spacing: 1px; /* Harf aralığı */
+            color: #786f6f; /* Yazı rengi değiştirildi */
+        }
+
+            .bardaki-yazi:hover {
+                filter: blur(2px);
+                color: #d5d2d2; /* Daha açık gri renk */
+            }
+
+        .navbar .navbar-brand,
+        .navbar .nav-link {
+            color: #d5d2d2; /* Yazı rengi */
+        }
+
+            .navbar .nav-link:hover {
+                background-color: rgba(211, 211, 211, 0.5); /* Açık gri arka plan */
+                color: #b0b0b0; /* Daha açık gri renk */
+            }
+
+        .carousel-inner img {
+            max-height: 300px; /* Yükseklik ayarı */
+            width: 70%; /* Genişlik ayarı, yanlarda boşluk oluşturacak */
+            margin: auto; /* Resmi ortalamak için */
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            background: none; /* Arka plan rengi kaldırıldı */
+            width: 50px; /* Ok genişliği */
+            height: 50px; /* Ok yüksekliği */
+            top: 50%; /* Dikey merkezleme */
+            transform: translateY(-50%); /* Dikey merkezleme için düzeltme */
+        }
+
+        .carousel-control-prev {
+            left: 10px; /* Sol ok konumu */
+        }
+
+        .carousel-control-next {
+            right: 10px; /* Sağ ok konumu */
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background: none; /* Arka plan rengi kaldırıldı */
+            color: black; /* Ok rengi siyah */
+            font-size: 2rem; /* Ok boyutu */
+        }
+
+            .carousel-control-prev-icon::after {
+                content: '‹'; /* Sol ok simgesi */
+                font-size: 3rem; /* Ok boyutu */
+                color: black; /* Ok rengi siyah */
+            }
+
+            .carousel-control-next-icon::after {
+                content: '›'; /* Sağ ok simgesi */
+                font-size: 3rem; /* Ok boyutu */
+                color: black; /* Ok rengi siyah */
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/assets/img/logo.png" alt="Logo" style="max-height: 50px;" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Index">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Projects" asp-action="Index">Proje</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">İletişim</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+       
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - IdmhProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

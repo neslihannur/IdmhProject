@@ -1,0 +1,23 @@
+﻿/* Genel Stil */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Stil */
+.navbar {
+    background-color: #333; /* Navbar arka plan rengi */
+}
+
+.navbar-brand {
+    color: #fff; /* Navbar markası rengi */
+}
+
+.nav-link {
+    color: #fff; /* Menü linkleri rengi */
+}
+
+    .nav-link:hover {
+        background-color: #ddd; /* Menü linklerine mouse geldiğinde renk */
+    }
