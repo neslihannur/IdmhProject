@@ -25,7 +25,7 @@ namespace IdmhProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categoryies",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,7 +34,7 @@ namespace IdmhProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categoryies", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,9 +121,9 @@ namespace IdmhProject.Migrations
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Categoryies_CategoryId",
+                        name: "FK_Projects_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categoryies",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -193,7 +193,7 @@ namespace IdmhProject.Migrations
                 name: "TeamMembers");
 
             migrationBuilder.DropTable(
-                name: "Categoryies");
+                name: "Categories");
         }
     }
 }

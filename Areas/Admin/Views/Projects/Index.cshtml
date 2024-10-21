@@ -1,59 +1,60 @@
 ﻿@model IEnumerable<IdmhProject.Models.Project>
-
 @{
-    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+@{
+    ViewData["Title"] = "Projects List";
 }
 
-<h1>Index</h1>
+<h1 class="text-center mt-4">@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-5">
+    <a href="/Admin/Projects/Create" class="btn btn-primary mb-3">Create New Project</a>
+
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Team Members</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.Title</td>
+                    <td>@project.Description</td>
+                    <td>
+                        <img src="@project.Image" alt="@project.Title" class="img-fluid" style="max-width: 100px; height: auto;" />
+                    </td>
+                    <td>@project.Categories.Name</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            @foreach (var teamMember in project.ProjectTeamMembers.Select(ptm => ptm.TeamMember))
+                            {
+                                <li>@teamMember.Name - <small>@teamMember.Position</small></li>
+                            }
+                        </ul>
+                    </td>
+                    <td>@project.CreatedDate.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@project.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-info">Details</a>
+                        <form asp-action="Delete" asp-route-id="@project.Id" method="post" class="d-inline-block">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Optional: Include Bootstrap from CDN -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />

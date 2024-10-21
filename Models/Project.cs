@@ -1,4 +1,6 @@
-﻿namespace IdmhProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IdmhProject.Models
 {
     public class Project
     {
@@ -7,10 +9,12 @@
         public string Description { get; set; }
         public string Image { get; set; }
         public DateTime CreatedDate { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
         // Foreign Key for Category
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category Categories { get; set; }
 
         // Many-to-Many Relationship 
         public ICollection<ProjectTeamMember> ProjectTeamMembers { get; set; }
