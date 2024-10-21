@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdmhProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241021185111_Initial")]
+    [Migration("20241021211041_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -85,7 +85,7 @@ namespace IdmhProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoryies");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.ContactFormSubmission", b =>
@@ -227,13 +227,13 @@ namespace IdmhProject.Migrations
 
             modelBuilder.Entity("IdmhProject.Models.Project", b =>
                 {
-                    b.HasOne("IdmhProject.Models.Category", "Category")
+                    b.HasOne("IdmhProject.Models.Category", "Categories")
                         .WithMany("Projects")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.ProjectTeamMember", b =>

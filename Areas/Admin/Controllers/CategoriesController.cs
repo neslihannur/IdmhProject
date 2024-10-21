@@ -23,7 +23,7 @@ namespace IdmhProject.Areas.Admin.Controllers
         // GET: Admin/Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categoryies.ToListAsync());
+            return View(await _context.Categories.ToListAsync());
         }
 
         // GET: Admin/Categories/Details/5
@@ -34,7 +34,7 @@ namespace IdmhProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categoryies
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -74,7 +74,7 @@ namespace IdmhProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categoryies.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace IdmhProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categoryies
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
@@ -140,10 +140,10 @@ namespace IdmhProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categoryies.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
-                _context.Categoryies.Remove(category);
+                _context.Categories.Remove(category);
             }
 
             await _context.SaveChangesAsync();
@@ -152,7 +152,7 @@ namespace IdmhProject.Areas.Admin.Controllers
 
         private bool CategoryExists(int id)
         {
-            return _context.Categoryies.Any(e => e.Id == id);
+            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }
