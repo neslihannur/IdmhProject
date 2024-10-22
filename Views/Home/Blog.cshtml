@@ -1,0 +1,20 @@
+﻿@model IEnumerable<IdmhProject.Models.Blog>
+
+<div class="blog-container">
+    <h1>Blog</h1>
+    <div class="blog-posts">
+        @foreach (var blog in Model)
+        {
+            <div class="blog-post">
+                <div class="post-image">
+                    <img src="@blog.Image.Split(',')[0]" alt="@blog.Title" />
+                </div>
+                <div class="post-content">
+                    <h2>@blog.Title</h2>
+                    <p>@blog.Content.Substring(0, Math.Min(blog.Content.Length, 100))...</p>
+                    <a href="@Url.Action("Details", "Blogs", new { id = blog.Id })" class="read-more">Devamını Oku</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
