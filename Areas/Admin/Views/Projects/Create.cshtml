@@ -1,50 +1,31 @@
-﻿@model IdmhProject.Models.Project
+﻿@model Project
 
-@{
-    Layout = "_AdminLayout";
-}
-
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Title">Başlık</label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+@using (Html.BeginForm("Create", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
     </div>
 
-    <div class="form-group">
-        <label asp-for="Description">Açıklama</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+    <div>
+        @Html.LabelFor(model => model.Description)
+        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
     </div>
 
-    <div class="form-group">
-        <label asp-for="ImageFile">Görsel</label>
+    <div>
+        @Html.LabelFor(model => model.ImageFile)
         <input type="file" asp-for="ImageFile" class="form-control" />
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="category">Kategori</label>
-        <select id="category" name="CategoryId" required class="form-control">
-            <option value="" selected disabled>Kategori Seçiniz</option>
-            @foreach (var category in ViewData["Categories"] as List<SelectListItem>)
-            {
-                <option value="@category.Value">@category.Text</option>
-            }
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label>Takım Üyeleri</label>
-        <select name="selectedTeamMembers" class="form-control" multiple="multiple">
-            @foreach (var member in ViewData["TeamMembers"] as List<SelectListItem>)
-            {
-                <option value="@member.Value">@member.Text</option>
-            }
-        </select>
+    <div>
+        @Html.LabelFor(model => model.CategoryId)
+        @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, "Select a category", new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.TeamMember)
+        @Html.TextBoxFor(model => model.TeamMember, new { @class = "form-control" })
     </div>
 
     <button type="submit" class="btn btn-primary">Create</button>
-
-
-</form>
+}

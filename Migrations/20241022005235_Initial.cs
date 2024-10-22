@@ -115,7 +115,8 @@ namespace IdmhProject.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    TeamMember = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,30 +125,6 @@ namespace IdmhProject.Migrations
                         name: "FK_Projects_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectTeamMembers",
-                columns: table => new
-                {
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
-                    TeamMemberId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectTeamMembers", x => new { x.ProjectId, x.TeamMemberId });
-                    table.ForeignKey(
-                        name: "FK_ProjectTeamMembers_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectTeamMembers_TeamMembers_TeamMemberId",
-                        column: x => x.TeamMemberId,
-                        principalTable: "TeamMembers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -161,11 +138,6 @@ namespace IdmhProject.Migrations
                 name: "IX_Projects_CategoryId",
                 table: "Projects",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectTeamMembers_TeamMemberId",
-                table: "ProjectTeamMembers",
-                column: "TeamMemberId");
         }
 
         /// <inheritdoc />
@@ -178,19 +150,16 @@ namespace IdmhProject.Migrations
                 name: "ContactFormSubmissions");
 
             migrationBuilder.DropTable(
-                name: "ProjectTeamMembers");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "StaticContents");
 
             migrationBuilder.DropTable(
-                name: "Authors");
-
-            migrationBuilder.DropTable(
-                name: "Projects");
-
-            migrationBuilder.DropTable(
                 name: "TeamMembers");
+
+            migrationBuilder.DropTable(
+                name: "Authors");
 
             migrationBuilder.DropTable(
                 name: "Categories");

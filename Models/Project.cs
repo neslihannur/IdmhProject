@@ -14,10 +14,9 @@ namespace IdmhProject.Models
 
         // Foreign Key for Category
         public int CategoryId { get; set; }
-        public Category Categories { get; set; }
+        public Category? Category { get; set; }
 
-        // Many-to-Many Relationship 
-        public ICollection<ProjectTeamMember> ProjectTeamMembers { get; set; }
+        public string? TeamMember { get; set; } // Projenin ait olduğu takım üyesi
     }
 
 }

@@ -124,9 +124,6 @@ namespace IdmhProject.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -138,6 +135,10 @@ namespace IdmhProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TeamMember")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -146,24 +147,7 @@ namespace IdmhProject.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CategoryId1");
-
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.ProjectTeamMember", b =>
-                {
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamMemberId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProjectId", "TeamMemberId");
-
-                    b.HasIndex("TeamMemberId");
-
-                    b.ToTable("ProjectTeamMembers");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.StaticContent", b =>
@@ -229,36 +213,13 @@ namespace IdmhProject.Migrations
 
             modelBuilder.Entity("IdmhProject.Models.Project", b =>
                 {
-                    b.HasOne("IdmhProject.Models.Category", "Categories")
-                        .WithMany()
+                    b.HasOne("IdmhProject.Models.Category", "Category")
+                        .WithMany("Projects")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IdmhProject.Models.Category", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("CategoryId1");
-
-                    b.Navigation("Categories");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.ProjectTeamMember", b =>
-                {
-                    b.HasOne("IdmhProject.Models.Project", "Project")
-                        .WithMany("ProjectTeamMembers")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IdmhProject.Models.TeamMember", "TeamMember")
-                        .WithMany("ProjectTeamMembers")
-                        .HasForeignKey("TeamMemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-
-                    b.Navigation("TeamMember");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.Author", b =>
@@ -269,16 +230,6 @@ namespace IdmhProject.Migrations
             modelBuilder.Entity("IdmhProject.Models.Category", b =>
                 {
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.Project", b =>
-                {
-                    b.Navigation("ProjectTeamMembers");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.TeamMember", b =>
-                {
-                    b.Navigation("ProjectTeamMembers");
                 });
 #pragma warning restore 612, 618
         }

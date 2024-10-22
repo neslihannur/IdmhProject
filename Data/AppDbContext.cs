@@ -14,7 +14,7 @@ namespace IdmhProject.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContactFormSubmission> ContactFormSubmissions { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectTeamMember> ProjectTeamMembers { get; set; } // Kavşak Tablosu
+        
         public DbSet<StaticContent> StaticContents {  get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
 
@@ -22,24 +22,11 @@ namespace IdmhProject.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Many-to-Many Relationship between Projects and TeamMembers
-            modelBuilder.Entity<ProjectTeamMember>()
-                .HasKey(pt => new { pt.ProjectId, pt.TeamMemberId });
-
-            modelBuilder.Entity<ProjectTeamMember>()
-                .HasOne(pt => pt.Project)
-                .WithMany(p => p.ProjectTeamMembers)
-                .HasForeignKey(pt => pt.ProjectId);
-
-            modelBuilder.Entity<ProjectTeamMember>()
-                .HasOne(pt => pt.TeamMember)
-                .WithMany(t => t.ProjectTeamMembers)
-                .HasForeignKey(pt => pt.TeamMemberId);
-
             modelBuilder.Entity<Project>()
-               .HasOne(p => p.Categories)
-               .WithMany()
-               .HasForeignKey(p => p.CategoryId);
+                .HasOne(p => p.Category) // "Categories" yerine "Category" yazdık
+                .WithMany(c => c.Projects) // Category'nin birden fazla projeye sahip olduğunu belirtir
+                .HasForeignKey(p => p.CategoryId); // Yabancı anahtar
         }
+
     }
 }
