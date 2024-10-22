@@ -1,4 +1,6 @@
-﻿namespace IdmhProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IdmhProject.Models
 {
     public class Blog
     {
@@ -10,6 +12,9 @@
         // Foreign Key for Author
         public int AuthorId { get; set; }
         public Author Author { get; set; }
+        public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 
 }

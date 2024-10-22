@@ -19,14 +19,14 @@ namespace IdmhProject.Controllers
             _context = context;
         }
 
-        // GET: Projects
+       
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.Projects.Include(p => p.Category);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Projects/Details/5
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,7 +45,7 @@ namespace IdmhProject.Controllers
             return View(project);
         }
 
-        // GET: Projects/Create
+        
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
@@ -87,19 +87,18 @@ namespace IdmhProject.Controllers
                     
                 };
 
-                // Projeyi ekliyoruz
+                
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Eğer model geçerli değilse
+            
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
             return View(project);
         }
 
-
-        // GET: Projects/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,34 +106,35 @@ namespace IdmhProject.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
+            // Category ile birlikte proje verisini al
+            var project = await _context.Projects.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
             if (project == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
+
+            // Kategorileri yükle
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", project.CategoryId);
+
             return View(project);
         }
 
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // POST: Projects/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Project project)
+        public async Task<IActionResult> Edit(int id, Project project)
         {
             if (id != project.Id)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
-            {
-                // Model geçerli değilse, kategori listesini yeniden oluştur
-                ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
-                return View(project);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    // Model geçerli değilse, kategori listesini yeniden oluştur
+            //    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
+            //    return View(project);
+            //}
 
             try
             {
@@ -208,7 +208,7 @@ namespace IdmhProject.Controllers
         }
 
 
-        // GET: Projects/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -227,7 +227,6 @@ namespace IdmhProject.Controllers
             return View(project);
         }
 
-        // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
