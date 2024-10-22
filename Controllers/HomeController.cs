@@ -20,6 +20,15 @@ namespace IdmhProject.Controllers
             {
                 return View();
             }
+        public async Task<IActionResult> Blog()
+        {
+            var blogs = await _context.Blogs
+                .Include(b => b.Author)
+                .OrderByDescending(b => b.PublishedDate)
+                .ToListAsync();
+
+            return View(blogs);
+        }
 
         public IActionResult Details(int id)
         {
