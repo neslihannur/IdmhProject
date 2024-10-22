@@ -54,13 +54,12 @@ namespace IdmhProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Image,CreatedDate,CategoryId,TeamMember,ImageFile")] Project project)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Image,CreatedDate,CategoryId,TeamMember,ImageFiles")] Project project)
         {
-            string? newFileName = null;
+            List<string> fileNames = new List<string>();
 
-            if (project.ImageFile != null)
+            if (project.ImageFiles != null && project.ImageFiles.Any())
             {
-                newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(project.ImageFile.FileName);
                 string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages");
 
                 if (!Directory.Exists(wwwrootPath))
@@ -68,35 +67,43 @@ namespace IdmhProject.Controllers
                     Directory.CreateDirectory(wwwrootPath);
                 }
 
-                string imageFullPath = Path.Combine(wwwrootPath, newFileName);
-
-                using (var stream = new FileStream(imageFullPath, FileMode.Create))
+                foreach (var file in project.ImageFiles)
                 {
-                    project.ImageFile.CopyTo(stream);
+                    string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(file.FileName);
+                    string imageFullPath = Path.Combine(wwwrootPath, newFileName);
+
+                    using (var stream = new FileStream(imageFullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    
+                    fileNames.Add(newFileName);
                 }
 
+                
+                project.Image = string.Join(",", fileNames);
+
+                
                 Project item = new Project()
                 {
                     Title = project.Title,
                     Description = project.Description,
-                    Image = newFileName,
+                    Image = project.Image,  
                     TeamMember = project.TeamMember,
                     CreatedDate = DateTime.Now,
-                    
                     CategoryId = project.CategoryId,
-                    
                 };
 
-                
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
             return View(project);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
@@ -129,66 +136,75 @@ namespace IdmhProject.Controllers
                 return NotFound();
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    // Model geçerli değilse, kategori listesini yeniden oluştur
-            //    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", project.CategoryId);
-            //    return View(project);
-            //}
-
             try
             {
-                // Mevcut projeyi veritabanından al
+                
                 var existingProject = await _context.Projects.FindAsync(id);
                 if (existingProject == null)
                 {
                     return NotFound();
                 }
 
-                string newFileName = existingProject.Image; // Eski dosya adını koru
+                
+                string existingImageFiles = existingProject.Image;
 
-                // Yeni bir resim yüklendiyse
-                if (project.ImageFile != null)
+                
+                if (project.ImageFiles != null && project.ImageFiles.Any())
                 {
-                    // Eğer eski bir fotoğraf varsa, önce onu sil
+                    
                     if (!string.IsNullOrEmpty(existingProject.Image))
                     {
-                        string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages", existingProject.Image);
-                        if (System.IO.File.Exists(oldImagePath))
+                        var oldImageFiles = existingProject.Image.Split(',');
+                        foreach (var oldImage in oldImageFiles)
                         {
-                            System.IO.File.Delete(oldImagePath);  // Eski fotoğrafı sil
+                            string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages", oldImage);
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);  
+                            }
                         }
                     }
 
-                    // Yeni dosya adını oluştur
-                    newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(project.ImageFile.FileName);
-                    string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages");
+                    
+                    List<string> newFileNames = new List<string>();
 
-                    // Klasör yoksa oluştur
-                    if (!Directory.Exists(wwwrootPath))
+                    
+                    foreach (var file in project.ImageFiles)
                     {
-                        Directory.CreateDirectory(wwwrootPath);
+                        string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(file.FileName);
+                        string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages");
+
+                        
+                        if (!Directory.Exists(wwwrootPath))
+                        {
+                            Directory.CreateDirectory(wwwrootPath);
+                        }
+
+                       
+                        string imageFullPath = Path.Combine(wwwrootPath, newFileName);
+
+                       
+                        using (var stream = new FileStream(imageFullPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        
+                        newFileNames.Add(newFileName);
                     }
 
-                    // Yeni fotoğrafın tam yolunu oluştur
-                    string imageFullPath = Path.Combine(wwwrootPath, newFileName);
-
-                    // Dosyayı kaydet
-                    using (var stream = new FileStream(imageFullPath, FileMode.Create))
-                    {
-                        await project.ImageFile.CopyToAsync(stream);
-                    }
+                    
+                    existingProject.Image = string.Join(",", newFileNames);
                 }
 
-                // Veritabanındaki item bilgilerini güncelle
+                
                 existingProject.Title = project.Title;
                 existingProject.Description = project.Description;
-                existingProject.Image = newFileName; // Yeni dosya adını güncelle
                 existingProject.TeamMember = project.TeamMember;
                 existingProject.CreatedDate = project.CreatedDate;
                 existingProject.CategoryId = project.CategoryId;
 
-                // Projeyi güncelle
+                
                 _context.Update(existingProject);
                 await _context.SaveChangesAsync();
             }

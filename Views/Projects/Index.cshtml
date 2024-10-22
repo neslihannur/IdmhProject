@@ -43,19 +43,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            
                 <td>
-                        @if (!string.IsNullOrEmpty(item.Image))
-                        {
-                        <img src="~/ProjectImages/@item.Image" alt="@item.Title" style="width:100px; height:auto;" />
-                        }
-                        else
-                        {
-                        <span>Fotoğraf yok</span>
-                        }
-                </td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        
+                        var images = item.Image.Split(',');
 
-            
+                        
+                        foreach (var image in images)
+                        {
+                            <img src="~/ProjectImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
+                        }
+                    }
+                    else
+                    {
+                        <span>Fotoğraf yok</span>
+                    }
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>

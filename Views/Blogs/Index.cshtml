@@ -49,7 +49,14 @@
                 <td>
                     @if (!string.IsNullOrEmpty(item.Image))
                     {
-                        <img src="~/BlogImages/@item.Image" alt="@item.Title" style="width:100px; height:auto;" />
+
+                        var images = item.Image.Split(',');
+
+
+                        foreach (var image in images)
+                        {
+                            <img src="~/BlogImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
+                        }
                     }
                     else
                     {
