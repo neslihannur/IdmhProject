@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\BlogImages\" />
     <Folder Include="wwwroot\Img-Slider\" />
+    <Folder Include="wwwroot\Logo\" />
     <Folder Include="wwwroot\ProjectImages\" />
   </ItemGroup>
 
