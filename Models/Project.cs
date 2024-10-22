@@ -10,7 +10,7 @@ namespace IdmhProject.Models
         public string Image { get; set; }
         public DateTime CreatedDate { get; set; }
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IEnumerable<IFormFile> ImageFiles { get; set; }
 
         // Foreign Key for Category
         public int CategoryId { get; set; }

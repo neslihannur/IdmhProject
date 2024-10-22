@@ -14,7 +14,7 @@ namespace IdmhProject.Models
         public Author Author { get; set; }
         public string Image { get; set; }
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IEnumerable<IFormFile> ImageFiles { get; set; }
     }
 
 }

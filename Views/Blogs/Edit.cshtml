@@ -34,11 +34,14 @@
                 <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
                 <span asp-validation-for="AuthorId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" type="file" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <label asp-for="ImageFiles" class="control-label"></label>
+                <input asp-for="ImageFiles" type="file" class="form-control" multiple />
+                <span asp-validation-for="ImageFiles" class="text-danger"></span>
             </div>
+            
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
