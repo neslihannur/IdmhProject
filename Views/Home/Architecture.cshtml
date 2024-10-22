@@ -6,22 +6,16 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="category-sidebar">
-    <h4>Kategoriler</h4>
-    <ul>
-        <li><a href="@Url.Action("Architecture")">Mimarlık</a></li>
-        <li><a href="@Url.Action("InteriorArchitecture")">İç Mimarlık</a></li>
-        <!-- Diğer kategoriler buraya eklenebilir -->
-    </ul>
-</div>
+
 
 <div class="project-grid">
     @foreach (var project in Model)
     {
         <div class="project-item">
-            <img src="@project.Image" alt="@project.Title" />
-            <h3>@project.Title</h3>
-            <p>@project.Description</p>
+            <a href="@Url.Action("Details", "Home", new { id = project.Id })">
+                <!-- Detay sayfasına yönlendirme -->
+                <img src="@project.Image" alt="@project.Title" />
+            </a>
         </div>
     }
 </div>

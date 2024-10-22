@@ -20,10 +20,21 @@ namespace IdmhProject.Controllers
             {
                 return View();
             }
-            public IActionResult Architecture()
+
+        public IActionResult Details(int id)
+        {
+            var project = _context.Projects.Find(id); // Veritabanýndan proje bilgilerini al
+            if (project == null)
+            {
+                return NotFound(); // Proje bulunamazsa 404 döndür
+            }
+            return View(project); // Proje bilgilerini view'a geçir
+        }
+
+        public IActionResult Architecture()
             {
                 var projects = _context.Projects
-                    .Include(p => p.Categories)
+                    .Include(p => p.Category)
                     .Where(p => p.CategoryId == 1) // Mimarlýk kategorisi
                     .ToList();
 
@@ -33,7 +44,7 @@ namespace IdmhProject.Controllers
             public IActionResult InteriorArchitecture()
             {
                 var projects = _context.Projects
-                    .Include(p => p.Categories)
+                    .Include(p => p.Category)
                     .Where(p => p.CategoryId == 2) // Ýç Mimarlýk kategorisi
                     .ToList();
 

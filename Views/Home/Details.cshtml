@@ -1,0 +1,18 @@
+﻿@model IdmhProject.Models.Project
+
+@{
+    ViewData["Title"] = Model.Title; // Proje başlığı
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="project-gallery">
+    <img src="@Model.Image" alt="@Model.Title" />
+</div>
+
+<h3>Proje Anlatımı</h3>
+<p>@Model.Description</p> <!-- Proje açıklaması için bu kısmı kullanın -->
+
+<footer>
+    <p>2024 - Idmh - Tüm Hakları Saklıdır</p>
+</footer>
