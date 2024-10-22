@@ -4,6 +4,41 @@ body {
     margin: 0;
     padding: 0;
 }
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.project-item {
+    background-color: white;
+    border: 1px solid black;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+    .project-item:hover {
+        background-color: lightgray; /* Hover rengi */
+    }
+
+.category-sidebar {
+    margin-bottom: 20px;
+}
+
+    .category-sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .category-sidebar ul li a {
+            text-decoration: none;
+            color: black;
+        }
+
+            .category-sidebar ul li a:hover {
+                color: blue; /* Kategori link hover rengi */
+            }
+
 
 /* Navbar Stil */
 .navbar {
