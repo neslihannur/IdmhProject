@@ -8,6 +8,7 @@ namespace IdmhProject.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public string? Image2 {  get; set; }
         public DateTime CreatedDate { get; set; }
         [NotMapped]
         public IEnumerable<IFormFile> ImageFiles { get; set; }
@@ -17,6 +18,7 @@ namespace IdmhProject.Models
         public Category? Category { get; set; }
 
         public string? TeamMember { get; set; } // Projenin ait olduğu takım üyesi
+        public string Content { get; set; }
     }
 
 }
