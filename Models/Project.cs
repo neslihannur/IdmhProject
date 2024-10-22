@@ -10,14 +10,13 @@ namespace IdmhProject.Models
         public string Image { get; set; }
         public DateTime CreatedDate { get; set; }
         [NotMapped]
-        public IFormFile? ImageFile { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         // Foreign Key for Category
         public int CategoryId { get; set; }
-        public Category Categories { get; set; }
+        public Category? Category { get; set; }
 
-        // Many-to-Many Relationship 
-        public ICollection<ProjectTeamMember> ProjectTeamMembers { get; set; }
+        public string? TeamMember { get; set; } // Projenin ait olduğu takım üyesi
     }
 
 }

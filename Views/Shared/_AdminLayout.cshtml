@@ -97,13 +97,13 @@
                         </li>
                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Index">Blog</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Blogs" asp-action="Index">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Projects" asp-action="Index">Proje</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Proje</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">İletişim</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">İletişim</a>
                         </li>
                         
                     </ul>
@@ -125,8 +125,10 @@
             &copy; 2024 - IdmhProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+   @RenderSection("Scripts", required: false) <!-- Scripts section'ını render etmek -->
+@* 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
 </body>
 </html>

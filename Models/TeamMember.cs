@@ -1,4 +1,6 @@
-﻿namespace IdmhProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IdmhProject.Models
 {
     public class TeamMember
     {
@@ -7,9 +9,9 @@
         public string Position { get; set; }
         public string Bio { get; set; }
         public string Image { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
-        // Many-to-Many Relationship
-        public ICollection<ProjectTeamMember> ProjectTeamMembers { get; set; }
     }
 
 }
