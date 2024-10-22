@@ -84,6 +84,7 @@ body {
     text-align: center;
     box-shadow: none; /* Gölgelendirme kaldýrýldý */
 }
+
 /* Baþlýk stili */
 h2 {
     font-size: 2.5em; /* Baþlýk boyutunu artýrma */
@@ -95,7 +96,6 @@ h2 {
     font-family: 'Georgia', serif; /* Yazý tipi deðiþimi */
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Gölgelendirme efekti */
 }
-
 
 /* Proje galeri stili */
 .project-gallery {
@@ -120,6 +120,30 @@ h3 {
     color: #444; /* Açýklama baþlýðý rengi */
 }
 
+/* Detaylar için stil */
+.project-summary {
+    background-color: white; /* Arka plan rengi */
+    border: 1px solid #ddd; /* Kenarlýk */
+    border-radius: 8px; /* Kenar yuvarlama */
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Gölgelendirme efekti */
+}
+
+    .project-summary h3 {
+        margin-top: 0; /* Üstteki boþluðu kaldýr */
+        color: #258cfb; /* Baþlýk rengi */
+    }
+
+    .project-summary ul {
+        list-style-type: none; /* Noktalarý kaldýr */
+        padding: 0; /* Padding kaldýr */
+    }
+
+        .project-summary ul li {
+            margin: 5px 0; /* Liste öðeleri arasýndaki boþluk */
+        }
+
 p {
     margin: 10px 0;
     padding: 10px;
@@ -141,3 +165,49 @@ footer {
     footer p {
         margin: 0; /* Margin kaldýrma */
     }
+/* Proje özet bilgileri stili */
+.project-summary strong {
+    font-family: 'Arial', sans-serif; /* Yazý tipi */
+    font-size: 1.1em; /* Yazý boyutu */
+    color: #444; /* Yazý rengi */
+}
+
+.project-summary ul {
+    list-style-type: none; /* Noktalarý kaldýr */
+    padding: 0; /* Padding kaldýr */
+}
+
+    .project-summary ul li {
+        margin: 10px 0; /* Liste öðeleri arasýndaki boþluk */
+        font-family: 'Arial', sans-serif; /* Yazý tipi */
+        font-size: 1.1em; /* Yazý boyutu */
+        line-height: 1.8; /* Satýr yüksekliði */
+        color: #444; /* Yazý rengi */
+    }
+
+        /* Tüm baþlýklarýn rengi #444 olmalý */
+        .project-summary ul li strong {
+            color: #444; /* Vurgulamak için baþlýk rengi, #444 yapýldý */
+        }
+.project-gallery {
+    display: flex;
+    justify-content: center; /* Resmi ortalar */
+    margin-bottom: 20px;
+    border: none; /* Kenarlýk kaldýrýldý */
+    border-radius: 8px; /* Kenar yuvarlama */
+    overflow: hidden; /* Taþmalarý önler */
+    box-shadow: none; /* Gölgelendirme kaldýrýldý */
+    background-color: #f4f4f4; /* Arka plan rengi sayfa rengiyle ayný */
+}
+    .project-gallery img {
+        width: auto; /* Geniþliði otomatik ayarlayýn */
+        height: 300px; /* Yüksekliði 200 piksel olarak ayarlayýn */
+        max-width: 100%; /* Geniþliði kapsayýcýnýn geniþliðine göre sýnýrlayýn */
+        object-fit: cover; /* Resmin alaný kaplamasýný saðlar */
+        border-radius: 8px; /* Kenar yuvarlama */
+    }
+
+
+
+
+
