@@ -20,6 +20,18 @@ namespace IdmhProject.Controllers
             {
                 return View();
             }
+        public IActionResult BlogDetails(int id)
+        {
+            var blog = _context.Blogs.FirstOrDefault(b => b.Id == id);
+
+            if (blog == null)
+            {
+                return NotFound();
+            }
+
+            return View(blog);
+        }
+
         public async Task<IActionResult> Blog()
         {
             var blogs = await _context.Blogs
