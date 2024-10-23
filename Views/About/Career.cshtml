@@ -16,7 +16,7 @@
             <th>Profil</th>
             <th>Ödüller</th>
            
-            <th>İşlemler</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -29,14 +29,16 @@
                 <td>
                     @career.Award
                 </td>
-                
+
                 <td>
                     <div class="btn-group-vertical">
-                        <a asp-action="Edit" asp-route-id="@career.Id" class="btn btn-dark">Edit</a>
-                       
-                        <a asp-action="DeleteCareer" asp-route-id="@career.Id" class="btn btn-dark">Delete</a>
+                        
+                        <form asp-action="DeleteCareer" asp-route-id="@career.Id" method="post">
+                            <button type="submit" class="btn btn-dark">Delete</button>
+                        </form>
                     </div>
                 </td>
+
             </tr>
         }
     </tbody>

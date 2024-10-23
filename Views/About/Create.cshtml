@@ -5,7 +5,9 @@
     Layout = "_AdminLayout";
 }
 
-<hr />
+<div>
+    <a asp-action="Index">← Geri</a>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -37,9 +39,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

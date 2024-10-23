@@ -287,7 +287,7 @@ namespace IdmhProject.Controllers
             _context.SaveChanges();
 
             // İşlem başarılıysa anasayfaya yönlendir
-            return RedirectToAction("Index");
+            return RedirectToAction("Career");
         }
 
 

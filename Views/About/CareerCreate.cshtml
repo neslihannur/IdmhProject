@@ -5,6 +5,10 @@
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
+
+<div>
+    <a asp-action="Career">← Geri</a>
+</div>
 <form asp-action="CareerCreate" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -25,9 +29,7 @@
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{
