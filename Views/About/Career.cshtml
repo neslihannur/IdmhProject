@@ -1,0 +1,64 @@
+﻿@model List<Career>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+
+<p>
+    <a asp-action="CareerCreate" class="btn btn-dark">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Profil</th>
+            <th>Ödüller</th>
+           
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var career in Model)
+        {
+            <tr>
+                <td>
+                    @career.Profile
+                </td>
+                <td>
+                    @career.Award
+                </td>
+                
+                <td>
+                    <div class="btn-group-vertical">
+                        <a asp-action="Edit" asp-route-id="@career.Id" class="btn btn-dark">Edit</a>
+                       
+                        <a asp-action="Delete" asp-route-id="@career.Id" class="btn btn-dark">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    .btn-group-vertical {
+        display: flex;
+        flex-direction: column; /* Butonları dikey dizme */
+        gap: 5px; /* Butonlar arasındaki boşluk */
+    }
+
+    .btn {
+        background-color: black; /* Buton arka plan rengi siyah */
+        color: white; /* Buton yazı rengi beyaz */
+        border: none; /* Kenarlıkları kaldır */
+        padding: 5px 10px; /* İç boşluk */
+        text-decoration: none; /* Alt çizgiyi kaldır */
+        border-radius: 5px; /* Kenar yuvarlama */
+        text-align: center; /* Yazıyı ortala */
+    }
+
+        .btn:hover {
+            background-color: darkgray; /* Üzerine gelindiğinde arka plan rengi */
+        }
+</style>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IdmhProject.Models.Project>
+﻿@model IEnumerable<IdmhProject.Models.TeamMember>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,79 +10,58 @@
 <p>
     <a asp-action="Create" class="btn btn-dark">Create New</a>
 </p>
-
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Position)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Content)
+                @Html.DisplayNameFor(model => model.Bio)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamMember)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Image))
+                    @if (!string.IsNullOrEmpty(item.Image)) // item.Image kontrolü
                     {
-                        var images = item.Image.Split(',');
-                        foreach (var image in images)
-                        {
-                            <img src="~/ProjectImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
-                        }
+                        <img src="~/Ekip/@item.Image" alt="@item.Name" style="width:100px; height:auto; margin-right: 10px;" />
                     }
                     else
                     {
-                        <span>Fotoğraf yok</span>
+                        <span>No image available</span> <!-- Resim yoksa mesaj göster -->
                     }
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name) // Kategori adını göster
-                </td>
-                <td>
+
+            <td>
                     <div class="btn-group-vertical">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Delete</a>
                     </div>
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-
 <style>
     .btn-group-vertical {
         display: flex;

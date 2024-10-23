@@ -1,0 +1,36 @@
+﻿@model Career
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+<form asp-action="CareerCreate" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Profile" class="control-label"></label>
+        <input asp-for="Profile" class="form-control" />
+        <span asp-validation-for="Profile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Award" class="control-label"></label>
+        <input asp-for="Award" class="form-control" />
+        <span asp-validation-for="Award" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
