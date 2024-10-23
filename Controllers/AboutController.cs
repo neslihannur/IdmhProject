@@ -268,6 +268,27 @@ namespace IdmhProject.Controllers
             }
             return View(career);
         }
+        [HttpPost]
+        public IActionResult DeleteCareer(int id)
+        {
+            // Silinecek kariyeri veritabanında bul
+            var career = _context.Career.FirstOrDefault(c => c.Id == id);
+
+            // Eğer kariyer bulunamadıysa, hata döndür
+            if (career == null)
+            {
+                return NotFound();
+            }
+
+            // Kariyeri veritabanından sil
+            _context.Career.Remove(career);
+
+            // Değişiklikleri kaydet
+            _context.SaveChanges();
+
+            // İşlem başarılıysa anasayfaya yönlendir
+            return RedirectToAction("Index");
+        }
 
 
 
