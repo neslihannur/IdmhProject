@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using IdmhProject.Data;
 using IdmhProject.Models;
 
-namespace IdmhProject.Controllers
+namespace IdmhProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProjectsController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,25 +20,25 @@ namespace IdmhProject.Controllers
             _context = context;
         }
 
+
         public async Task<IActionResult> Index()
         {
-            
+
             if (HttpContext.Session.GetString("IsAuthenticated") == "true")
             {
-               
+
                 var projects = await _context.Projects.Include(p => p.Category).ToListAsync();
 
-                
+
                 ViewBag.Username = HttpContext.Session.GetString("Username");
 
-                
+
                 return View(projects);
             }
 
-           
+
             return RedirectToAction("Index", "Login");
         }
-
 
 
         public async Task<IActionResult> Details(int? id)
@@ -111,19 +112,19 @@ namespace IdmhProject.Controllers
                         await file.CopyToAsync(stream);
                     }
 
-                    
+
                     fileNames.Add(newFileName);
                 }
 
-                
+
                 project.Image = string.Join(",", fileNames);
 
-                
+
                 Project item = new Project()
                 {
                     Title = project.Title,
                     Description = project.Description,
-                    Image = project.Image,  
+                    Image = project.Image,
                     TeamMember = project.TeamMember,
                     CreatedDate = DateTime.Now,
                     Content = project.Content,
@@ -252,7 +253,7 @@ namespace IdmhProject.Controllers
                 existingProject.TeamMember = project.TeamMember;
                 existingProject.CreatedDate = project.CreatedDate;
                 existingProject.CategoryId = project.CategoryId;
-                existingProject.ParentCategoryId = project.ParentCategoryId; 
+                existingProject.ParentCategoryId = project.ParentCategoryId;
 
                 _context.Update(existingProject);
                 await _context.SaveChangesAsync();

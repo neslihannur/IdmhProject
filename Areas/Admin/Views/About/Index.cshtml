@@ -1,0 +1,61 @@
+﻿@model IEnumerable<IdmhProject.Models.TeamMember>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+<p>
+    <a href="/Admin/About/Create" class="btn btn-dark">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image)) // item.Image kontrolü
+                    {
+                        <img src="~/Ekip/@item.Image" alt="@item.Name" style="width:100px; height:auto; margin-right: 10px;" />
+                    }
+                    else
+                    {
+                        <span>No image available</span> <!-- Resim yoksa mesaj göster -->
+                    }
+                </td>
+
+                <td>
+                    <a href="/Admin/About/Edit" class="btn btn-dark">Edit</a>
+                    <a href="/About/Delete" class="btn btn-dark"> Delete</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+
