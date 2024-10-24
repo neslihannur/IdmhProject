@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+ 
+        #wrapper {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .leftContainer h1 {
+            font-family: 'Playfair Display', serif; /* Şık bir serif fontu */
+            font-size: 36px; /* Daha büyük font boyutu */
+            margin-bottom: 10px;
+            font-weight: 900; /* Daha kalın yazı */
+            color: #333;
+            text-transform: uppercase; /* Harflerin tamamını büyük yapar */
+            letter-spacing: 1px; /* Harfler arasında boşluk */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Hafif gölge efekti */
+        }
+
+        .leftContainer p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666; /* Yazı rengi biraz daha hafif */
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+            .contact-info:hover {
+                background: #e0e0e0; /* Hover rengi */
+            }
+
+            .contact-info i {
+                margin-right: 10px;
+                color: black; /* Koyu gri ikon rengi */
+            }
+
+    
+        input, textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif; /* Başlık yazı tipi */
+            font-size: 36px; /* Başlık boyutu */
+            margin-bottom: 20px; /* Alt boşluk */
+            text-align: left; /* Başlığı sola dayalı yap */
+            color: black;
+        }
+
+        button {
+            padding: 10px;
+            background-color: white;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: white;
+            }
+
+        .rightContainer {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>İletişim</h1>
+    </header>
+
+    <div id="wrapper">
+        <div class="leftContainer">
+            <div class="contact-info">
+                <i class="fas fa-phone"></i>
+                <a href="tel:+905404364024" style="text-decoration: none; color: black;">
+                    <p>Telefon: +90 540 436 40 24</p>
+                </a>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:info@idmh.com.tr" style="text-decoration: none; color: black;">
+                    <p>Email: info@idmh.com.tr</p>
+                </a>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>Adres: Abdurrahmangazi mah Fatih Bulvarı No:71 Daire:1 Sultanbeyli İstanbul</p>
+            </div>
+        </div>
+
+        <div class="rightContainer">
+            
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.491633193305!2d29.26603141531769!3d40.98167567937059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa0c5e38b5b61%3A0x1a3e1c6b4b1d2d2!2sFatih%20Blv.%20No%3A71%20D%3A1%2C%20Abdurrahmangazi%2C%2034920%20Sultanbeyli%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1698159326750!5m2!1str!2str" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</body>
+</html>

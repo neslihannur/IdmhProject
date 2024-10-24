@@ -19,6 +19,9 @@ namespace IdmhProject.Controllers
             public IActionResult Index()
             {
                 return View();
+            }  public IActionResult Kariyer()
+            {
+                return View();
             }
         public IActionResult BlogDetails(int id)
         {
@@ -71,9 +74,16 @@ namespace IdmhProject.Controllers
 
                 return View(projects);
             }
-    
 
+        public async Task<IActionResult> TeamMembers()
+        {
+            var teamMembers = await _context.TeamMembers.ToListAsync();
+            return View(teamMembers);
+        }
         public IActionResult Hakkimizda()
+            {
+                return View();
+            } public IActionResult Iletisim()
             {
                 return View();
             }

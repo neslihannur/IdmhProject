@@ -213,11 +213,33 @@ footer {
     padding: 20px;
 }
 
+/* Baþlýk stili */
 h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5em;
+    font-size: 2em; /* Daha küçük baþlýk boyutu */
     color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em; /* h2 boyutunu da ayarlayýn */
+    margin-bottom: 10px;
+    color: #424242; /* Renk ayarý */
+    text-align: center;
+    text-transform: uppercase; /* Büyük harf */
+    letter-spacing: 1px; /* Harfler arasý boþluk */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Gölgelendirme efekti */
+}
+
+/* Blog baþlýðý için stil */
+.blog-title {
+    font-family: 'Playfair Display', serif; /* Font ayarý */
+    font-size: 2em; /* Baþlýk boyutunu küçült */
+    margin-bottom: 10px;
+    font-weight: 500; /* Kalýn yazý */
+    color: #333; /* Renk */
+    text-transform: uppercase; /* Büyük harf */
+    letter-spacing: 1px; /* Harfler arasý boþluk */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Hafif gölge */
 }
 
 .blog-posts {
@@ -250,11 +272,6 @@ h1 {
     padding: 15px;
 }
 
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
-}
 
 p {
     font-size: 1em;

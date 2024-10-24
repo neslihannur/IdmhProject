@@ -2,7 +2,7 @@
     Layout = "_Layout";
 }
 
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <ol class="carousel-indicators">
         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
@@ -10,13 +10,22 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="~/Img-Slider/slider1.jpg" class="d-block w-100" alt="Slider 1">
+            <img src="~/Img-Slider/slider1.jpg" class="d-block w-100" alt="Slider 1" style="max-height: 500px; object-fit: cover;">
+            <h6 class="text-white" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.5s;">İbrahim Durmaz Mimarlık Hizmetleri</h6>
+            <h1 class="text-white" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.8s;">Estetik Dokunuş</h1>
+          
         </div>
         <div class="carousel-item">
-            <img src="~/Img-Slider/slider2.jpg" class="d-block w-100" alt="Slider 2">
+            <img src="~/Img-Slider/slider2.jpg" class="d-block w-100" alt="Slider 2" style="max-height: 500px; object-fit: cover;">
+            <h6 class="text-white" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.5s;">İbrahim Durmaz Mimarlık Hizmetleri</h6>
+            <h1 class="text-white" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.8s;">Özgün Tasarımlar</h1>
+            
         </div>
         <div class="carousel-item">
-            <img src="~/Img-Slider/slider3.jpg" class="d-block w-100" alt="Slider 3">
+            <img src="~/Img-Slider/slider3.jpg" class="d-block w-100" alt="Slider 3" style="max-height: 500px; object-fit: cover;">
+            <h6 class="text-white" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.5s;">İbrahim Durmaz Mimarlık Hizmetleri</h6>
+            <h1 class="text-white" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); animation-delay: 0.8s;">Sürdürülebilir Mimari</h1>
+            
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -28,3 +37,40 @@
         <span class="visually-hidden">Next</span>
     </a>
 </div>
+
+<style>
+    .carousel-item h6, .carousel-item h1, .carousel-item p {
+        opacity: 0; /* Başlangıçta görünmez */
+        transition: opacity 0.5s ease-in-out; /* Geçiş efekti */
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .carousel-item.active h6,
+    .carousel-item.active h1,
+    .carousel-item.active p {
+        opacity: 1; /* Aktif resimde görünür hale getir */
+    }
+</style>
+
+<script>
+    const carouselItems = document.querySelectorAll('.carousel-item');
+
+    carouselItems.forEach((item) => {
+        const captions = item.querySelectorAll('h6, h1, p');
+        item.addEventListener('slide.bs.carousel', () => {
+            captions.forEach((caption, i) => {
+                caption.style.animationDelay = (i * 0.3 + 0.5) + 's';
+                caption.style.opacity = 0; // İlk başta görünmez
+            });
+        });
+
+        item.addEventListener('slid.bs.carousel', () => {
+            captions.forEach((caption, i) => {
+                caption.style.animationDelay = (i * 0.3 + 0.5) + 's';
+                caption.style.opacity = 1; // Aktif slide geçince görünür
+            });
+        });
+    });
+</script>

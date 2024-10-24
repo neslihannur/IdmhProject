@@ -1,7 +1,7 @@
 ﻿@model IdmhProject.Models.Blog
 
 <div class="blog-details-container">
-    <h1>@Model.Title</h1>
+    <h1 class="blog-title">@Model.Title</h1> <!-- Sınıf eklendi -->
     <div class="post-meta">
         <i class="fa fa-clock-o"></i>
         <time class="entry-date" datetime="@Model.PublishedDate.ToString("o")">@Model.PublishedDate.ToString("MMMM yyyy")</time>
@@ -16,3 +16,65 @@
 
     <a href="@Url.Action("Blog", "Home")" class="back-button">Geri Dön</a>
 </div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif; /* Ana yazı tipi */
+        margin: 0;
+        padding: 20px; /* Kenar boşluğu */
+        background-color: #fff; /* Arka plan rengi */
+        color: #333; /* Yazı rengi */
+    }
+
+    .blog-details-container {
+        max-width: 800px; /* Maksimum genişlik */
+        margin: auto; /* Ortala */
+        padding: 20px; /* İçerik boşluğu */
+        background-color: #fff; /* Beyaz arka plan */
+        border-radius: 10px; /* Köşe yuvarlama */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    }
+
+    .blog-title {
+        font-family: 'Playfair Display', serif; /* Başlık yazı tipi */
+        font-size: 30px; /* Başlık boyutu */
+        margin-bottom: 10px;
+        font-weight: 700; /* Kalın yazı */
+        color: #333; /* Renk */
+        text-align: left; /* Sola yasla */
+    }
+
+    .post-meta {
+        font-size: 14px; /* Meta bilgisi boyutu */
+        color: #999; /* Renk */
+        margin-bottom: 15px; /* Alt boşluk */
+    }
+
+    .post-image img {
+        width: 100%; /* Resmi tam genişlik yap */
+        height: auto; /* Orantıyı koru */
+        border-radius: 5px; /* Resim köşe yuvarlama */
+    }
+
+    .post-content p {
+        font-size: 15px; /* İçerik yazı boyutu */
+        line-height: 1.6; /* Satır yüksekliği */
+        color: #666; /* Yazı rengi */
+        text-align: justify; /* Paragraf metnini iki yana yasla */
+        margin-top: 20px; /* Üst boşluk */
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #258cfb; /* Buton rengi */
+        color: white; /* Buton yazı rengi */
+        text-decoration: none; /* Alt çizgi kaldır */
+        border-radius: 5px; /* Köşe yuvarlama */
+    }
+
+        .back-button:hover {
+            background-color: #1a6cbf; /* Hover rengi */
+        }
+</style>

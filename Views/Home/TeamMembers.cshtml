@@ -1,0 +1,83 @@
+﻿@model IEnumerable<IdmhProject.Models.TeamMember>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Takım Üyeleri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      
+
+        .team-container {
+            max-width: 800px; /* Maksimum genişlik */
+            margin: 20px auto; /* Ortala */
+            padding: 20px;
+            background-color: white; /* Beyaz arka plan */
+            border-radius: 10px; /* Köşe yuvarlama */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif; /* Başlık yazı tipi */
+            font-size: 36px; /* Başlık boyutu */
+            margin-bottom: 20px; /* Alt boşluk */
+            text-align: center; /* Başlığı sola dayalı yap */
+            color: black;
+        }
+
+        .team-grid {
+            display: flex; /* Flexbox kullan */
+            flex-direction: column; /* Dikey dizilim */
+            gap: 20px; /* Kartlar arası boşluk */
+        }
+
+        .team-member {
+            background-color: #ffffff; /* Üye kartı arka planı */
+            border-radius: 8px; /* Kart köşe yuvarlama */
+            padding: 20px; /* İç boşluk */
+            text-align: center; /* Metni ortala */
+            transition: transform 0.3s, box-shadow 0.3s; /* Geçiş efektleri */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Kart gölgesi */
+        }
+
+            .team-member:hover {
+                transform: translateY(-5px); /* Hoverda yukarı kaydır */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hoverda gölge derinliği artır */
+            }
+
+        h2 {
+            font-size: 1.5rem; /* Üye adı boyutu */
+            color: black; /* Üye adı rengi */
+            margin: 10px 0; /* Üst ve alt boşluk */
+        }
+
+        h3 {
+            font-size: 1.2rem; /* Pozisyon boyutu */
+            color: #666; /* Pozisyon rengi */
+            margin: 5px 0; /* Üst ve alt boşluk */
+        }
+
+        p {
+            font-size: 0.9rem; /* Biyografi boyutu */
+            color: #444; /* Biyografi rengi */
+            line-height: 1.5; /* Satır yüksekliği */
+        }
+    </style>
+</head>
+<body>
+    <div class="team-container">
+        <h1>Takım Üyeleri</h1>
+        <div class="team-grid">
+            @foreach (var member in Model)
+            {
+                <div class="team-member">
+                    <h2>@member.Name</h2>
+                    <h3>@member.Position</h3>
+                    <p>@member.Bio</p>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

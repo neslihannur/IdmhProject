@@ -2,6 +2,18 @@
 
 <div class="blog-container">
     <h1>Blog</h1>
+    <style>
+        h1 {
+            font-family: 'Playfair Display', serif; /* Başlık yazı tipi */
+            text-align: center; /* Başlığı ortala */
+            color: black; /* Başlık rengi */
+            margin-bottom: 20px; /* Alt boşluk */
+        }
+        .post-content h2 {
+            font-size: 1.3rem; /* Başlık boyutunu ayarlayın */
+            margin: 0.5em 0; /* Üst ve alt boşluk */
+        }
+    </style>
     <div class="blog-posts">
         @foreach (var blog in Model)
         {
