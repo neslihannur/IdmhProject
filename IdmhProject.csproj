@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\BlogImages\" />
     <Folder Include="wwwroot\Ekip\" />
     <Folder Include="wwwroot\Img-Slider\" />

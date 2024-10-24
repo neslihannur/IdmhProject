@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using IdmhProject.Data;
+﻿using IdmhProject.Data;
 using IdmhProject.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace IdmhProject.Controllers
+namespace IdmhProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AboutController : Controller
     {
         private readonly AppDbContext _context;
@@ -18,22 +14,12 @@ namespace IdmhProject.Controllers
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
-            
-            if (HttpContext.Session.GetString("IsAuthenticated") == "true")
-            {
-                
-                ViewBag.Username = HttpContext.Session.GetString("Username");
-
-                
-                var teamMembers = await _context.TeamMembers.ToListAsync();
-                return View(teamMembers);
-            }
-
-            
-            return RedirectToAction("Index", "Login");
+            return View(await _context.TeamMembers.ToListAsync());
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -225,7 +211,7 @@ namespace IdmhProject.Controllers
             return View(teamMember);
         }
 
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -247,16 +233,16 @@ namespace IdmhProject.Controllers
 
         public IActionResult Career()
         {
-            
+
             var careers = _context.Career.ToList();
 
-            
+
             if (careers == null || !careers.Any())
             {
-                return View("Career"); 
+                return View("Career");
             }
 
-           
+
             return View(careers);
         }
         // GET: Career/Create

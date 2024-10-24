@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using IdmhProject.Data;
 using IdmhProject.Models;
 
-namespace IdmhProject.Controllers
+namespace IdmhProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class BlogsController : Controller
     {
         private readonly AppDbContext _context;
@@ -21,19 +22,8 @@ namespace IdmhProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Kullanıcı oturumunu kontrol et
-            if (HttpContext.Session.GetString("IsAuthenticated") == "true")
-            {
-                // Kullanıcı adını ViewBag ile taşı
-                ViewBag.Username = HttpContext.Session.GetString("Username");
-
-                // Blogs ve ilgili Author verilerini getir
-                var blogs = await _context.Blogs.Include(b => b.Author).ToListAsync();
-                return View(blogs);
-            }
-
-            // Giriş yapılmamışsa Login sayfasına yönlendir
-            return RedirectToAction("Index", "Login");
+            var appDbContext = _context.Blogs.Include(b => b.Author);
+            return View(await appDbContext.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -78,31 +68,31 @@ namespace IdmhProject.Controllers
 
                 foreach (var imageFile in blog.ImageFiles)
                 {
-                    
+
                     string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(imageFile.FileName);
 
-                   
+
                     string imageFullPath = Path.Combine(wwwrootPath, newFileName);
 
-                    
+
                     using (var stream = new FileStream(imageFullPath, FileMode.Create))
                     {
                         await imageFile.CopyToAsync(stream);
                     }
 
-                   
+
                     fileNames.Add(newFileName);
                 }
 
                 imageNames = string.Join(",", fileNames);
             }
 
-            
+
             Blog item = new Blog()
             {
                 Title = blog.Title,
                 Content = blog.Content,
-                Image = imageNames, 
+                Image = imageNames,
                 PublishedDate = DateTime.Now,
                 AuthorId = blog.AuthorId
             };
@@ -121,14 +111,14 @@ namespace IdmhProject.Controllers
                 return NotFound();
             }
 
-            
+
             var project = await _context.Blogs.Include(p => p.Author).FirstOrDefaultAsync(p => p.Id == id);
             if (project == null)
             {
                 return NotFound();
             }
 
-            
+
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", project.AuthorId);
 
             return View(project);
@@ -152,13 +142,13 @@ namespace IdmhProject.Controllers
                     return NotFound();
                 }
 
-                
+
                 string imageNames = existingBlog.Image;
 
-               
+
                 if (blog.ImageFiles != null && blog.ImageFiles.Any())
                 {
-                    
+
                     if (!string.IsNullOrEmpty(existingBlog.Image))
                     {
                         string[] oldImages = existingBlog.Image.Split(',');
@@ -167,22 +157,22 @@ namespace IdmhProject.Controllers
                             string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BlogImages", oldImage);
                             if (System.IO.File.Exists(oldImagePath))
                             {
-                                System.IO.File.Delete(oldImagePath); 
+                                System.IO.File.Delete(oldImagePath);
                             }
                         }
                     }
 
-                    
+
                     List<string> fileNames = new List<string>();
                     string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BlogImages");
 
-                    
+
                     if (!Directory.Exists(wwwrootPath))
                     {
                         Directory.CreateDirectory(wwwrootPath);
                     }
 
-                    
+
                     foreach (var imageFile in blog.ImageFiles)
                     {
                         string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(imageFile.FileName);
@@ -193,21 +183,21 @@ namespace IdmhProject.Controllers
                             await imageFile.CopyToAsync(stream);
                         }
 
-                        fileNames.Add(newFileName); 
+                        fileNames.Add(newFileName);
                     }
 
-                    
+
                     imageNames = string.Join(",", fileNames);
                 }
 
-                
+
                 existingBlog.Title = blog.Title;
                 existingBlog.Content = blog.Content;
-                existingBlog.Image = imageNames; 
+                existingBlog.Image = imageNames;
                 existingBlog.PublishedDate = DateTime.Now;
                 existingBlog.AuthorId = blog.AuthorId;
 
-                
+
                 _context.Update(existingBlog);
                 await _context.SaveChangesAsync();
             }
@@ -246,7 +236,7 @@ namespace IdmhProject.Controllers
             return View(blog);
         }
 
-       
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
