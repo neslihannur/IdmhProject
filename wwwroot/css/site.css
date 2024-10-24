@@ -352,3 +352,31 @@ h1 {
 
 
 
+
+
+
+
+
+/* Footer stili */
+.footer {
+    background-color: #f4f4f4; /* Sayfanýn arka plan rengi ile ayný */
+    padding: 20px; /* Ýç boþluk */
+    position: relative; /* Konumlandýrma için */
+    border: none; /* Kenar çizgisini kaldýr */
+}
+
+.social-icons {
+    display: flex; /* Esnek kutu modeli */
+    justify-content: center; /* Ortala */
+}
+
+    .social-icons a {
+        color: black; /* Ýkon rengi */
+        margin: 0 15px; /* Ýkonlar arasýndaki boþluk */
+        transition: color 0.3s; /* Renk geçiþi */
+    }
+
+        .social-icons a:hover {
+            color: #d5d2d2; /* Hover durumunda deðiþecek renk */
+        }
+

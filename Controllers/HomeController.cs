@@ -71,10 +71,9 @@ namespace IdmhProject.Controllers
 
                 return View(projects);
             }
+    
 
-
-
-            public IActionResult Privacy()
+        public IActionResult Hakkimizda()
             {
                 return View();
             }
