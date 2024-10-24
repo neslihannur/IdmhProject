@@ -18,6 +18,7 @@ namespace IdmhProject.Data
         public DbSet<StaticContent> StaticContents { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
 
+        public DbSet<Career> Career { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>()

@@ -14,36 +14,61 @@
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="ImageFiles" class="control-label"></label>
                 <input asp-for="ImageFiles" type="file" class="form-control" multiple />
                 <span asp-validation-for="ImageFiles" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CreatedDate" class="control-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="">Bir kategori seçin</option>
+                    @foreach (var item in ViewData["CategoryId"] as SelectList)
+                    {
+                        <option value="@item.Value" >@item.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="ParentCategoryId" class="control-label"></label>
+                <select asp-for="ParentCategoryId" class="form-control">
+                    <option value="">Bir üst kategori seçin</option>
+                    @foreach (var item in ViewData["ParentCategoryId"] as SelectList)
+                    {
+                        <option value="@item.Value" >@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="TeamMember" class="control-label"></label>
                 <input asp-for="TeamMember" class="form-control" />
                 <span asp-validation-for="TeamMember" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -62,5 +87,27 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
+    
+    <script>
+        $(document).ready(function () {
+            $('#ParentCategoryId').change(function () {
+                var parentId = $(this).val();
+                $.ajax({
+                    url: '/Projects/GetSubCategories', // Controller adını ve yolunu kontrol edin
+                    type: 'GET',
+                    data: { parentId: parentId },
+                    success: function (data) {
+                        $('#CategoryId').empty();
+                        $.each(data, function (index, item) {
+                            $('#CategoryId').append($('<option>', {
+                                value: item.id,
+                                text: item.name
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }
+
