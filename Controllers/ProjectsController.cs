@@ -24,6 +24,14 @@ namespace IdmhProject.Controllers
         {
             return HttpContext.Session.GetString("IsAuthenticated") == "true";
         }
+        public IActionResult Logout()
+        {
+            // Session'ı temizle
+            HttpContext.Session.Clear();
+
+            // Home/Index sayfasına yönlendir
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Home()
         {

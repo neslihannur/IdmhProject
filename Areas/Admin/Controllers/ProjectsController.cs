@@ -37,6 +37,14 @@ namespace IdmhProject.Areas.Admin.Controllers
             var userModel = new User { UserName = user };
             return View(userModel);
         }
+        public IActionResult Logout()
+        {
+            // Clear the session
+            HttpContext.Session.Clear();
+
+            // Redirect to the home page outside the admin area
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
 
         public async Task<IActionResult> Index()
         {

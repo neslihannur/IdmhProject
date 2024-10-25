@@ -6,20 +6,73 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
         /* Sayfanın ortasına hizalamak için stil */
         .login-container {
-            min-height: 70vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative; /* Allow absolute positioning of lines */
+            padding: 20px;
         }
+
+        .card {
+            border: none; /* Remove card border */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .btn-dark {
+            background-color: #343a40; /* Dark background */
+            color: white; /* White text */
+        }
+
+            .btn-dark:hover {
+                background-color: #23272b; /* Darker on hover */
+            }
+
+        .yellow-line {
+            position: absolute;
+            height: 100%;
+            width: 5px; /* Line width */
+            background-color: #FFD700; /* Yellow color */
+            left: 0; /* Position left */
+        }
+
+            .yellow-line.right {
+                right: 0; /* Position right */
+                left: auto; /* Reset left */
+            }
+
+        .img-container {
+            position: absolute;
+            top: 10%; /* Adjust based on your design */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+            .img-container img {
+                width: 150px; /* Adjust image size */
+                opacity: 0.1; /* Slightly transparent */
+            }
     </style>
 </head>
 <body>
+    <div class="yellow-line"></div>
+    <div class="yellow-line right"></div>
+
     <div class="login-container">
+        <div class="img-container">
+            <img src="https://via.placeholder.com/150" alt="Decorative Image">
+        </div>
         <div class="card shadow" style="width: 25rem;">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Login</h2>
+                <h2 class="card-title text-center mb-4">Giriş Yap</h2>
                 <form method="post">
                     <div class="form-group">
                         <label for="username">Kullanıcı Adı</label>
@@ -31,7 +84,7 @@
                         <input type="password" name="password" class="form-control" required />
                     </div>
 
-                    <button type="submit" class="btn btn-dark btn-block mt-3">Login</button>
+                    <button type="submit" class="btn btn-dark btn-block mt-3">Giriş Yap</button>
 
                     @if (ViewBag.Error != null)
                     {

@@ -87,7 +87,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Projects" asp-action="Home">
+                <a class="navbar-brand" asp-area="Admin" asp-controller="Projects" asp-action="Home">
                     <img src="~/Logo/Logo-ımdh.jpg" alt="Logo" style="max-height: 50px;" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -96,14 +96,11 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        
-                        </li>
-                       
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Blogs" asp-action="Index">Blog</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Index">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Proje</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Projects" asp-action="Index">Proje</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="/About/Index" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -111,23 +108,32 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="About" asp-action="Index">Ekip</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="About" asp-action="Index">Ekip</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="About" asp-action="Career">Kariyer</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="About" asp-action="Career">Kariyer</a>
                                 </li>
                             </ul>
                         </li>
-
-                        
                     </ul>
+                    <!-- Logout Button aligned to the right -->
+                    <div class="ms-auto">
+                        <!-- ms-auto is Bootstrap's margin-start auto utility -->
+                        <a class="nav-link text-primary" asp-area="Admin" asp-controller="Projects" asp-action="Logout">
+                            <!-- SVG icon for logout -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                            </svg>
+                            Çıkış Yap
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
-
-       
-        </div>
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
