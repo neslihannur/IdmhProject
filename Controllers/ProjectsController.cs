@@ -19,6 +19,19 @@ namespace IdmhProject.Controllers
             _context = context;
         }
 
+        public IActionResult Home()
+        {
+            // Kullanıcı modelini getir ve View'a gönder
+            var user = HttpContext.Session.GetString("Username");
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var userModel = new User { UserName = user };
+            return View(userModel);  // User modelini view'a gönderiyoruz
+        }
+
         public async Task<IActionResult> Index()
         {
             

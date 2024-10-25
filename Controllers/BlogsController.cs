@@ -36,6 +36,8 @@ namespace IdmhProject.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+       
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

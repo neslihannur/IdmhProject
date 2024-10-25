@@ -1,0 +1,188 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "_AdminLayout";
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- FontAwesome için CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .main-container {
+            display: flex; /* Flex konteyner */
+            justify-content: space-between; /* Aralarındaki boşlukları dağıt */
+            align-items: flex-start; /* Üstten hizala */
+            height: 100vh; /* Yüksekliği ayarla */
+            background-color: #; /* Arka plan rengi */
+            padding: 20px; /* İçerik için boşluk ekle */
+        }
+
+        .card-container {
+            width: 30%; /* Sağ kısım için genişlik */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* Arka planı şeffaf yap */
+            margin-right: 20px; /* Sağ tarafa boşluk ekle */
+        }
+
+        .accordion {
+            width: 70%; /* Sol kısım için genişlik */
+            margin-left: 20px; /* Sol tarafa boşluk ekle */
+        }
+
+        .card-custom {
+            width: 100%; /* Kart genişliğini %100 yap */
+            height: 200px;
+            background: linear-gradient(135deg, #1e3a8a, #273c75);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease; /* Yumuşak geçiş animasyonu */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transform: scale(1); /* Başlangıç ölçeği */
+        }
+
+            /* Hover Efekti */
+            .card-custom:hover {
+                background: linear-gradient(135deg, #3b5998, #4b70c1);
+                transform: scale(1.05); /* Büyüme efekti */
+            }
+
+        /* Kartın büyümesi/küçülmesi için sınıf */
+        .scale-up {
+            transform: scale(1.1); /* Büyüme ölçeği */
+        }
+
+        /* Card Body İçeriği */
+        .card-body {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hologram Efekti */
+        .card-custom::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            opacity: 0.5;
+            transition: all 0.7s ease;
+            z-index: 0;
+        }
+
+        .card-custom:hover::before {
+            opacity: 0.8; /* Parlaklığı artır */
+        }
+
+        /* Soluk Mavi Renk */
+        .welcome-text {
+            color: rgba(255, 255, 255, 0.7); /* Soluk beyaz-mavi */
+        }
+
+        /* Gizli sınıf */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4 main-container">
+        <!-- Sağ Kısım: Kart -->
+        <div class="card-container">
+            <div id="flashingCard" class="card-custom">
+                <div class="card-body text-center">
+                    <h3 class="card-title welcome-text">Hoşgeldiniz, @Model.UserName!</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sol Kısım: Accordion -->
+        <div class="accordion" id="adminAccordion">
+            <!-- Bloglar -->
+            <div class="card shadow-lg border-0 mb-3">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center" id="headingBlogs">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white text-decoration-none" type="button"
+                                data-toggle="collapse" data-target="#collapseBlogs"
+                                aria-expanded="true" aria-controls="collapseBlogs">
+                            <i class="fas fa-blog mr-2"></i> Bloglar
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseBlogs" class="collapse show" aria-labelledby="headingBlogs" data-parent="#adminAccordion">
+                    <div class="card-body">
+                        <a href="@Url.Action("Index", "Blogs")" class="btn btn-outline-dark btn-block">Blogları Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projeler -->
+            <div class="card shadow-lg border-0 mb-3">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center" id="headingProjects">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white text-decoration-none collapsed" type="button"
+                                data-toggle="collapse" data-target="#collapseProjects"
+                                aria-expanded="false" aria-controls="collapseProjects">
+                            <i class="fas fa-project-diagram mr-2"></i> Projeler
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseProjects" class="collapse" aria-labelledby="headingProjects" data-parent="#adminAccordion">
+                    <div class="card-body">
+                        <a href="@Url.Action("Index", "Projects")" class="btn btn-outline-primary btn-block">Projeleri Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hakkımızda -->
+            <div class="card shadow-lg border-0 mb-3">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center" id="headingAbout">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white text-decoration-none collapsed" type="button"
+                                data-toggle="collapse" data-target="#collapseAbout"
+                                aria-expanded="false" aria-controls="collapseAbout">
+                            <i class="fas fa-info-circle mr-2"></i> Hakkımızda
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseAbout" class="collapse" aria-labelledby="headingAbout" data-parent="#adminAccordion">
+                    <div class="card-body">
+                        <a href="@Url.Action("Index", "About")" class="btn btn-outline-secondary btn-block">Hakkımızda Bölümünü Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Kartı otomatik büyütüp küçültmek için JavaScript
+        const card = document.getElementById('flashingCard');
+
+        function toggleCard() {
+            card.classList.toggle('scale-up'); // 'scale-up' sınıfını ekle/kaldır
+        }
+
+        // Her 1 saniyede bir çağır
+        setInterval(toggleCard, 1000);
+    </script>
+</body>

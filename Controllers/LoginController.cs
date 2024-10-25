@@ -32,7 +32,7 @@ namespace IdmhProject.Controllers
                 HttpContext.Session.SetString("Username", user.UserName);
 
                 // Giriş başarılı, Projects sayfasına yönlendir
-                return RedirectToAction("Index", "Projects");
+                return RedirectToAction("Home", "Projects");
             }
 
             ViewBag.Error = "Geçersiz kullanıcı adı veya şifre!";
