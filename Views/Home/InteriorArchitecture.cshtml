@@ -12,8 +12,10 @@
     @foreach (var project in Model)
     {
         <div class="project-item">
-            <img src="@project.Image" alt="@project.Title" />
-
+            <a href="@Url.Action("Details", "Home", new { id = project.Id })">
+                <!-- Detay sayfasına yönlendirme -->
+                <img src="@Url.Content("~/ProjectImages/" + project.Image)" alt="@project.Title" />
+            </a>
         </div>
     }
 </div>
