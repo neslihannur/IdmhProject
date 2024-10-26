@@ -4,15 +4,15 @@
     <h1>Blog</h1>
     <style>
         h1 {
-            font-family: 'Playfair Display', serif; /* Başlık yazı tipi */
-            text-align: center; /* Başlığı ortala */
-            color: black; /* Başlık rengi */
-            margin-bottom: 20px; /* Alt boşluk */
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
         }
 
         .post-content h2 {
-            font-size: 1.3rem; /* Başlık boyutunu ayarlayın */
-            margin: 0.5em 0; /* Üst ve alt boşluk */
+            font-size: 1.3rem;
+            margin: 0.5em 0;
         }
     </style>
     <div class="blog-posts">
@@ -20,15 +20,15 @@
         {
             <div class="blog-post">
                 <div class="post-image">
-                    <img src="/BlogImages/@blog.Image.Split(',')[0].Trim()" alt="@blog.Title" />
+                    @{
+                        // Resim URL'sini ayarlama
+                        var imageUrl = blog.Image.Split(',')[0].Trim(); // Sadece ilk resmi al
+                    }
+                    <img src="@imageUrl" alt="@blog.Title" />
                 </div>
                 <div class="post-content">
                     <h2>@blog.Title</h2>
                     <span class="post-date">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                        </svg>
                         <time class="entry-date" datetime="@blog.PublishedDate.ToString("yyyy-MM-ddTHH:mm:ss+00:00")">
                             @blog.PublishedDate.ToString("MMMM yyyy")
                         </time>
