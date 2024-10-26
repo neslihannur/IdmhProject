@@ -21,8 +21,8 @@
             <div class="blog-post">
                 <div class="post-image">
                     @{
-                        // Resim URL'sini ayarlama
-                        var imageUrl = blog.Image.Split(',')[0].Trim(); // Sadece ilk resmi al
+                        // Setting the image URL from the wwwroot/BlogImages folder
+                        var imageUrl = "/BlogImages/" + blog.Image.Split(',')[0].Trim(); // Use the first image
                     }
                     <img src="@imageUrl" alt="@blog.Title" />
                 </div>
