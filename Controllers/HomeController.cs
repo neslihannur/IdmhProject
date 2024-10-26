@@ -19,7 +19,12 @@ namespace IdmhProject.Controllers
             public IActionResult Index()
             {
                 return View();
-            }  public IActionResult Kariyer()
+            }    
+             public IActionResult Hizmetlerimiz()
+            {
+                return View();
+            } 
+             public IActionResult Kariyer()
             {
                 return View();
             }
