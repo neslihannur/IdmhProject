@@ -19,37 +19,57 @@ namespace IdmhProject.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        // Merkezi session kontrol yöntemi
+        private bool SessionCheck()
         {
-            
-            if (HttpContext.Session.GetString("IsAuthenticated") == "true")
-            {
-               
-                var projects = await _context.Projects.Include(p => p.Category).ToListAsync();
+            return HttpContext.Session.GetString("IsAuthenticated") == "true";
+        }
+        public IActionResult Logout()
+        {
+            // Session'ı temizle
+            HttpContext.Session.Clear();
 
-                
-                ViewBag.Username = HttpContext.Session.GetString("Username");
-
-                
-                return View(projects);
-            }
-
-           
-            return RedirectToAction("Index", "Login");
+            // Home/Index sayfasına yönlendir
+            return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Home()
+        {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
 
+            var user = HttpContext.Session.GetString("Username");
+            var userModel = new User { UserName = user };
+            return View(userModel);
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var projects = await _context.Projects.Include(p => p.Category).ToListAsync();
+            ViewBag.Username = HttpContext.Session.GetString("Username");
+            return View(projects);
+        }
 
         public async Task<IActionResult> Details(int? id)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var project = await _context.Projects.Include(p => p.Category).FirstOrDefaultAsync(m => m.Id == id);
             if (project == null)
             {
                 return NotFound();
@@ -57,16 +77,14 @@ namespace IdmhProject.Controllers
 
             return View(project);
         }
+
         [HttpGet]
         public JsonResult GetSubCategories(int parentId)
         {
             var subCategories = _context.Categories
                 .Where(c => c.ParentCategoryId == parentId)
-                .Select(c => new
-                {
-                    id = c.Id,
-                    name = c.Name
-                }).ToList();
+                .Select(c => new { id = c.Id, name = c.Name })
+                .ToList();
 
             return Json(subCategories);
         }
@@ -74,13 +92,15 @@ namespace IdmhProject.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var parentCategories = _context.ParentCategories.ToList();
             ViewBag.ParentCategories = new SelectList(parentCategories, "Id", "Name");
 
-            var categories = _context.Categories
-                .Include(c => c.ParentCategory)
-                .ToList();
-
+            var categories = _context.Categories.Include(c => c.ParentCategory).ToList();
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
 
             return View();
@@ -90,6 +110,11 @@ namespace IdmhProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Image,CreatedDate,Content,CategoryId,ParentCategoryId,TeamMember,ImageFiles")] Project project)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             List<string> fileNames = new List<string>();
 
             if (project.ImageFiles != null && project.ImageFiles.Any())
@@ -111,19 +136,16 @@ namespace IdmhProject.Controllers
                         await file.CopyToAsync(stream);
                     }
 
-                    
                     fileNames.Add(newFileName);
                 }
 
-                
                 project.Image = string.Join(",", fileNames);
 
-                
-                Project item = new Project()
+                Project item = new Project
                 {
                     Title = project.Title,
                     Description = project.Description,
-                    Image = project.Image,  
+                    Image = project.Image,
                     TeamMember = project.TeamMember,
                     CreatedDate = DateTime.Now,
                     Content = project.Content,
@@ -143,15 +165,19 @@ namespace IdmhProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            // Mevcut projeyi al
             var project = await _context.Projects
-                .Include(p => p.Category) // Kategori bilgilerini ekle
-                .Include(p => p.ParentCategory) // ParentCategory bilgilerini ekle
+                .Include(p => p.Category)
+                .Include(p => p.ParentCategory)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)
@@ -159,8 +185,7 @@ namespace IdmhProject.Controllers
                 return NotFound();
             }
 
-            // ViewModel'i oluştur
-            var projectDto = new Project()
+            var projectDto = new Project
             {
                 Id = project.Id,
                 Title = project.Title,
@@ -173,23 +198,22 @@ namespace IdmhProject.Controllers
                 Content = project.Content
             };
 
-            // Kategorileri yükle
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", project.CategoryId);
-
-            // Parent Kategorileri yükle
             ViewData["ParentCategoryId"] = new SelectList(_context.ParentCategories, "Id", "Name", project.ParentCategoryId);
-
-            // Mevcut fotoğraf adını ViewData ile gönder
             ViewData["ImageFileName"] = project.Image;
 
             return View(projectDto);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Project project)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id != project.Id)
             {
                 return NotFound();
@@ -203,11 +227,8 @@ namespace IdmhProject.Controllers
                     return NotFound();
                 }
 
-                string existingImageFiles = existingProject.Image;
-
                 if (project.ImageFiles != null && project.ImageFiles.Any())
                 {
-                    // Eski resimleri sil
                     if (!string.IsNullOrEmpty(existingProject.Image))
                     {
                         var oldImageFiles = existingProject.Image.Split(',');
@@ -246,13 +267,12 @@ namespace IdmhProject.Controllers
                     existingProject.Image = string.Join(",", newFileNames);
                 }
 
-                // Projeyi güncelle
                 existingProject.Title = project.Title;
                 existingProject.Description = project.Description;
                 existingProject.TeamMember = project.TeamMember;
                 existingProject.CreatedDate = project.CreatedDate;
                 existingProject.CategoryId = project.CategoryId;
-                existingProject.ParentCategoryId = project.ParentCategoryId; 
+                existingProject.ParentCategoryId = project.ParentCategoryId;
 
                 _context.Update(existingProject);
                 await _context.SaveChangesAsync();
@@ -272,9 +292,13 @@ namespace IdmhProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -295,13 +319,18 @@ namespace IdmhProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var project = await _context.Projects.FindAsync(id);
             if (project != null)
             {
                 _context.Projects.Remove(project);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -310,4 +339,5 @@ namespace IdmhProject.Controllers
             return _context.Projects.Any(e => e.Id == id);
         }
     }
+
 }

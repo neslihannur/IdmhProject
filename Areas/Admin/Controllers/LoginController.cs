@@ -27,8 +27,12 @@ namespace IdmhProject.Areas.Admin.Controllers
 
             if (user != null)
             {
-                // Giriş başarılı, Admin sayfasına yönlendir
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+                // Oturum bilgilerini ayarla
+                HttpContext.Session.SetString("IsAuthenticated", "true");
+                HttpContext.Session.SetString("Username", user.UserName);
+
+                // Giriş başarılı, Projects sayfasına yönlendir
+                return RedirectToAction("Home", "Projects");
             }
 
             ViewBag.Error = "Geçersiz kullanıcı adı veya şifre!";

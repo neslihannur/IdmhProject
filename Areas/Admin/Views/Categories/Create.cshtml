@@ -1,0 +1,84 @@
+﻿@model IdmhProject.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Kategori Adı</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <input type="text" name="newCategoryName" class="form-control mt-2" placeholder="Yeni Kategori Ekle" />
+
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label">Üst Kategori</label>
+                    <select asp-for="Id" class="form-control" asp-items="ViewBag.ParentCategories">
+                        <option value="">Bir üst kategori seçin</option>
+                    </select>
+                    <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                </div>
+
+                <input type="text" name="newParentCategoryName" class="form-control mt-2" placeholder="Yeni Üst Kategori Ekle" />
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ParentCategoryId').change(function () {
+                var parentId = $(this).val();
+                if (parentId) {
+                    $.ajax({
+                        url: '@Url.Action("GetSubCategories", "Categories")', // Controller adını ve metot ismini güncelleyin
+                        type: 'GET',
+                        data: { parentId: parentId },
+                        success: function (data) {
+                            // Alt kategori dropdown'ını temizle
+                            $('#SubCategoryId').empty();
+                            $('#SubCategoryId').append('<option value="">Seçiniz</option>'); // Varsayılan değer ekle
+                            $.each(data, function (index, item) {
+                                $('#SubCategoryId').append('<option value="' + item.id + '">' + item.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#SubCategoryId').empty(); // ParentCategoryId boşsa, alt kategoriyi temizle
+                }
+            });
+        });
+    </script>
+}
+

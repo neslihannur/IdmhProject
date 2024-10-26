@@ -5,12 +5,13 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a href="/Blogs/Create" class="btn btn-dark">Create New</a>
 </p>
-<table class="table">
+
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -32,29 +33,67 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.Id)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+
+                        var images = item.Image.Split(',');
+
+
+                        foreach (var image in images)
+                        {
+                            <img src="~/BlogImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
+                        }
+                    }
+                    else
+                    {
+                        <span>Fotoğraf yok</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <a href="/Blogs/Edit/@item.Id" class="btn btn-dark">Edit</a>
+                        <a href="/Blogs/Delete/@item.Id" class="btn btn-dark">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<style>
+    .btn-group-vertical {
+        display: flex;
+        flex-direction: column; /* Butonları dikey dizme */
+        gap: 5px; /* Butonlar arasındaki boşluk */
+    }
+
+    .btn {
+        background-color: black; /* Buton arka plan rengi siyah */
+        color: white; /* Buton yazı rengi beyaz */
+        border: none; /* Kenarlıkları kaldır */
+        padding: 5px 10px; /* İç boşluk */
+        text-decoration: none; /* Alt çizgiyi kaldır */
+        border-radius: 5px; /* Kenar yuvarlama */
+        text-align: center; /* Yazıyı ortala */
+    }
+
+        .btn:hover {
+            background-color: darkgray; /* Üzerine gelindiğinde arka plan rengi */
+        }
+</style>

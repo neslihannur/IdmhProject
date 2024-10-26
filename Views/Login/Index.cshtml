@@ -52,6 +52,40 @@
             font-size: 0.8rem;
             color: #6c757d;
         }
+
+        .btn-dark {
+            background-color: #343a40; /* Dark background */
+            color: white; /* White text */
+        }
+
+            .btn-dark:hover {
+                background-color: #23272b; /* Darker on hover */
+            }
+
+        .yellow-line {
+            position: absolute;
+            height: 100%;
+            width: 5px; /* Line width */
+            background-color: #FFD700; /* Yellow color */
+            left: 0; /* Position left */
+        }
+
+            .yellow-line.right {
+                right: 0; /* Position right */
+                left: auto; /* Reset left */
+            }
+
+        .img-container {
+            position: absolute;
+            top: 10%; /* Adjust based on your design */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+            .img-container img {
+                width: 150px; /* Adjust image size */
+                opacity: 0.1; /* Slightly transparent */
+            }
     </style>
 </head>
 <body>
