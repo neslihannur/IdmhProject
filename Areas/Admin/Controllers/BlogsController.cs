@@ -66,7 +66,7 @@ namespace IdmhProject.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id");
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
             return View();
         }
 
@@ -84,7 +84,7 @@ namespace IdmhProject.Areas.Admin.Controllers
             if (blog.ImageFiles != null && blog.ImageFiles.Any())
             {
                 List<string> fileNames = new List<string>();
-                string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectImages");
+                string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BlogImages");
 
                 if (!Directory.Exists(wwwrootPath))
                 {
