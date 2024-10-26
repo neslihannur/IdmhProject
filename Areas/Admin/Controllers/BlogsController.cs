@@ -20,7 +20,7 @@ namespace IdmhProject.Areas.Admin.Controllers
             _context = context;
         }
 
-        // Merkezi session kontrol yöntemi
+       
         private bool SessionCheck()
         {
             return HttpContext.Session.GetString("IsAuthenticated") == "true";

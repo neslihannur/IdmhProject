@@ -59,16 +59,28 @@ namespace IdmhProject.Controllers
         }
         public IActionResult AuthorCreate()
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> AuthorCreate([Bind("Id,Name")] Author author)
         {
+            if (!SessionCheck())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(author);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index)); // Redirect to the list of authors after creating
+                return RedirectToAction(nameof(Index)); // 
             }
             return View(author);
         }
