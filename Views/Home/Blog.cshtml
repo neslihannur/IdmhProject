@@ -9,6 +9,7 @@
             color: black; /* Başlık rengi */
             margin-bottom: 20px; /* Alt boşluk */
         }
+
         .post-content h2 {
             font-size: 1.3rem; /* Başlık boyutunu ayarlayın */
             margin: 0.5em 0; /* Üst ve alt boşluk */
@@ -19,7 +20,7 @@
         {
             <div class="blog-post">
                 <div class="post-image">
-                    <img src="@blog.Image.Split(',')[0]" alt="@blog.Title" />
+                    <img src="/BlogImages/@blog.Image.Split(',')[0].Trim()" alt="@blog.Title" />
                 </div>
                 <div class="post-content">
                     <h2>@blog.Title</h2>

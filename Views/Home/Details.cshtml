@@ -2,41 +2,29 @@
 
 @{
     ViewData["Title"] = Model.Title; // Proje başlığı
+    var basePath = Url.Content("~/ProjectImages/"); // Projeler için temel yol
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <div class="project-gallery">
-    <img src="@Model.Image" alt="@Model.Title" />
+    <img src="@basePath@Model.Image" alt="@Model.Title" />
 </div>
- 
-
 
 <!-- Özet Proje Bilgileri -->
 <div class="project-summary">
     <ul>
-      
+        <li>
             <strong>
                 <!-- Yaratım Tarihi SVG İkonu -->
-                <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <title>Year</title>
                     <desc>Completion year of this architecture project</desc>
-                    <g id="icon-/-calendar-/-black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="Group" stroke="currentColor">
-                            <rect id="Rectangle" x="0.5" y="2.5" width="19" height="17" rx="2"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="4.5" y="7.5" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="4.5" y="11" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="4.5" y="14.5" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="9.5" y="7.5" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="9.5" y="11" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="9.5" y="14.5" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="14.5" y="7.5" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="14.5" y="11" width="1" height="1"></rect>
-                            <rect id="Rectangle" fill="#D8D8D8" x="14.5" y="14.5" width="1" height="1"></rect>
-                            <path d="M5,0.5 L5,4.5" id="Line" stroke-linecap="round"></path>
-                            <path d="M15,0.5 L15,4.5" id="Line" stroke-linecap="round"></path>
-                            <path d="M10,0.5 L10,4.5" id="Line" stroke-linecap="round"></path>
-                        </g>
+                    <g fill="currentColor">
+                        <rect x="0.5" y="2.5" width="19" height="17" rx="2"></rect>
+                        <path d="M5,0.5 L5,4.5" stroke-linecap="round"></path>
+                        <path d="M15,0.5 L15,4.5" stroke-linecap="round"></path>
+                        <path d="M10,0.5 L10,4.5" stroke-linecap="round"></path>
                     </g>
                 </svg>
                 Yaratım Tarihi:
@@ -47,9 +35,9 @@
             <strong>
                 <!-- Takım Üyesi SVG İkonu -->
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 8.5C11.6569 8.5 13 7.15685 13 5.5C13 3.84315 11.6569 2.5 10 2.5C8.34315 2.5 7 3.84315 7 5.5C7 7.15685 8.34315 8.5 10 8.5Z" stroke="currentColor"></path>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17 9.5C18.1046 9.5 19 8.60457 19 7.5C19 6.39543 18.1046 5.5 17 5.5C15.8954 5.5 15 6.39543 15 7.5C15 8.60457 15.8954 9.5 17 9.5Z" stroke="currentColor"></path>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 9.5C4.10457 9.5 5 8.60457 5 7.5C5 6.39543 4.10457 5.5 3 5.5C1.89543 5.5 1 6.39543 1 7.5C1 8.60457 1.89543 9.5 3 9.5Z" stroke="currentColor"></path>
+                    <path d="M10 8.5C11.6569 8.5 13 7.15685 13 5.5C13 3.84315 11.6569 2.5 10 2.5C8.34315 2.5 7 3.84315 7 5.5C7 7.15685 8.34315 8.5 10 8.5Z" stroke="currentColor"></path>
+                    <path d="M17 9.5C18.1046 9.5 19 8.60457 19 7.5C19 6.39543 18.1046 5.5 17 5.5C15.8954 5.5 15 6.39543 15 7.5C15 8.60457 15.8954 9.5 17 9.5Z" stroke="currentColor"></path>
+                    <path d="M3 9.5C4.10457 9.5 5 8.60457 5 7.5C5 6.39543 4.10457 5.5 3 5.5C1.89543 5.5 1 6.39543 1 7.5C1 8.60457 1.89543 9.5 3 9.5Z" stroke="currentColor"></path>
                     <path d="M0.5 17.5V12C0.5 11.4477 0.947715 11 1.5 11H4C4.55228 11 5 11.4477 5 12V17.5" stroke="currentColor"></path>
                     <path d="M15 17.5V12C15 11.4477 15.4477 11 16 11H18.5C19.0523 11 19.5 11.4477 19.5 12V17.5" stroke="currentColor"></path>
                     <path d="M5 17V12.5C5 11.3954 5.89543 10.5 7 10.5H13C14.1046 10.5 15 11.3954 15 12.5V17" stroke="currentColor"></path>
@@ -62,11 +50,10 @@
 </div>
 
 <!-- Proje Anlatımı -->
-
-<p>@Model.Description</p> <!-- Proje açıklaması için bu kısmı kullanın -->
+<p>@Model.Description</p>
 
 <div class="project-gallery">
-    <img src="@Model.Image2" alt="@Model.Title" />
+    <img src="@basePath@Model.Image2" alt="@Model.Title" />
 </div>
 
 <p>@Model.Content</p>
