@@ -6,16 +6,15 @@
 
 <h2>@ViewData["Title"]</h2>
 
-
-
 <div class="project-grid">
     @foreach (var project in Model)
     {
         <div class="project-item">
             <a href="@Url.Action("Details", "Home", new { id = project.Id })">
                 <!-- Detay sayfasına yönlendirme -->
-                <img src="@project.Image" alt="@project.Title" />
+                <img src="@Url.Content("~/ProjectImages/" + project.Image)" alt="@project.Title" />
             </a>
         </div>
     }
 </div>
+@* url nin başına yani gösterdiğimiz yerde domainin adını yazmam gerekebilir *@

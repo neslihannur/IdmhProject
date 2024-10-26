@@ -16,6 +16,7 @@
             color: black; /* Varsayılan yazı rengi siyah */
         }
 
+
         .navbar.fixed {
             position: fixed;
             top: 0;
@@ -45,6 +46,12 @@
                 font-weight: bold; /* Kalın yazı */
                 font-size: 1.1rem; /* Daha büyük yazı boyutu */
             }
+
+        .navbar-nav .nav-item .nav-link {
+            color: black; /* Yazı rengini siyah yap */
+            margin-left: 40px; /* Soldan boşluk ekle */
+            padding-right: 15px; /* Sağdan ekstra boşluk ekle */
+        }
 
         .footer {
             background-color: white; /* Alt bar rengi */
@@ -103,7 +110,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Services">Hizmetlerimiz</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Hizmetlerimiz">Hizmetlerimiz</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a>
