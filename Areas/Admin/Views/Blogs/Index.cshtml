@@ -7,7 +7,8 @@
 
 
 <p>
-    <a href="/Blogs/Create" class="btn btn-dark">Create New</a>
+    <a href="/Blogs/Create" class="btn btn-dark">Yeni Blog Oluştur</a>
+    <a href="/About/AuthorCreate" class="btn btn-dark">Yeni Yazar Oluştur</a>
 </p>
 
 
@@ -15,19 +16,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Başlık
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Content)
+                İçerik
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublishedDate)
+                Oluşturma Tarihi
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
+                Görsel
             </th>
             <th></th>
         </tr>
@@ -67,8 +66,8 @@
                 </td>
                 <td>
                     <div class="btn-group-vertical">
-                        <a href="/Blogs/Edit/@item.Id" class="btn btn-dark">Edit</a>
-                        <a href="/Blogs/Delete/@item.Id" class="btn btn-dark">Delete</a>
+                        <a href="/Blogs/Edit/@item.Id" class="btn btn-dark">Düzenle</a>
+                        <a href="/Blogs/Delete/@item.Id" class="btn btn-dark">Sil</a>
                     </div>
 
                 </td>

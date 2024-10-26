@@ -1,4 +1,4 @@
-﻿@model IdmhProject.Models.Blog
+﻿@model IdmhProject.Models.Author
 
 @{
     ViewData["Title"] = "Create";
@@ -11,17 +11,17 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Başlık</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
+                <label asp-for="Content" class="control-label">İçerik</label>
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PublishedDate" class="control-label"></label>
+                <label asp-for="PublishedDate" class="control-label">Oluşturulma Tarihi</label>
                 <input asp-for="PublishedDate" class="form-control" />
                 <span asp-validation-for="PublishedDate" class="text-danger"></span>
             </div>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
+                <label asp-for="Image" class="control-label">Görsel</label>
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>

@@ -7,6 +7,7 @@
 
 <p>
     <a href="/About/Create" class="btn btn-dark">Create New</a>
+    
 </p>
 
 <table class="table table-striped">
@@ -21,9 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Bio)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -39,17 +38,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Bio)
             </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Image)) // item.Image kontrolü
-                    {
-                        <img src="~/Ekip/@item.Image" alt="@item.Name" style="width:100px; height:auto; margin-right: 10px;" />
-                    }
-                    else
-                    {
-                        <span>No image available</span> <!-- Resim yoksa mesaj göster -->
-                    }
-                </td>
-
+              
                 <td>
                     <a href="/About/Edit" class="btn btn-dark">Edit</a>
                     <a href="/Delete" class="btn btn-dark"> Delete</a>

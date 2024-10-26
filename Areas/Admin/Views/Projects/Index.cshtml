@@ -29,12 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentCategory)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.TeamMember)
             </th>
@@ -53,21 +48,44 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image2)
-            </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+
+                        var images = item.Image.Split(',');
+
+
+                        foreach (var image in images)
+                        {
+                            <img src="~/ProjectImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
+                        }
+                    }
+                    else
+                    {
+                        <span>Fotoğraf yok</span>
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+
+                        var images = item.Image.Split(',');
+
+
+                        foreach (var image in images)
+                        {
+                            <img src="~/ProjectImages/@image" alt="@item.Title" style="width:100px; height:auto; margin-right: 10px;" />
+                        }
+                    }
+                    else
+                    {
+                        <span>Fotoğraf yok</span>
+                    }
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentCategory.Id)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.TeamMember)
             </td>

@@ -57,6 +57,21 @@ namespace IdmhProject.Controllers
 
             return View(blog);
         }
+        public IActionResult AuthorCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AuthorCreate([Bind("Id,Name")] Author author)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(author);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index)); // Redirect to the list of authors after creating
+            }
+            return View(author);
+        }
 
         public IActionResult Create()
         {

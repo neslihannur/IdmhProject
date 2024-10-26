@@ -38,25 +38,32 @@ namespace IdmhProject.Areas.Admin.Controllers
             return View(blogs);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult AuthorCreate()
         {
             if (!SessionCheck())
             {
                 return RedirectToAction("Index", "Login");
             }
 
-            if (id == null)
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AuthorCreate([Bind("Id,Name")] Author author)
+        {
+            if (!SessionCheck())
             {
-                return NotFound();
+                return RedirectToAction("Index", "Login");
             }
 
-            var blog = await _context.Blogs.Include(b => b.Author).FirstOrDefaultAsync(m => m.Id == id);
-            if (blog == null)
-            {
-                return NotFound();
-            }
 
-            return View(blog);
+            if (ModelState.IsValid)
+            {
+                _context.Add(author);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index)); // Redirect to the list of authors after creating
+            }
+            return View(author);
         }
 
         public IActionResult Create()
