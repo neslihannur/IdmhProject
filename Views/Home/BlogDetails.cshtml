@@ -6,10 +6,10 @@
         <i class="fa fa-clock-o"></i>
         <time class="entry-date" datetime="@Model.PublishedDate.ToString("o")">@Model.PublishedDate.ToString("MMMM yyyy")</time>
     </div>
-
     <div class="post-image">
-        <img src="@Model.Image.Split(',')[0]" alt="@Model.Title" />
+        <img src="@Url.Content("~/BlogImages/" + Model.Image.Split(',')[0])" alt="@Model.Title" />
     </div>
+
     <div class="post-content">
         <p>@Model.Content</p>
     </div>
