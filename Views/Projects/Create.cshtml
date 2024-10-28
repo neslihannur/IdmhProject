@@ -5,38 +5,38 @@
     Layout = "_AdminLayout";
 }
 
-<hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Başlık</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <label asp-for="Description" class="control-label">Detay</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <label asp-for="Content" class="control-label">İçerik</label>
+                <textarea asp-for="Content" class="form-control"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageFiles" class="control-label"></label>
+                <label asp-for="ImageFiles" class="control-label">Görsel</label>
                 <input asp-for="ImageFiles" type="file" class="form-control" multiple />
                 <span asp-validation-for="ImageFiles" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
+                <label asp-for="CreatedDate" class="control-label">Oluşturulma Tarihi</label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
+                <label asp-for="CategoryId" class="control-label">Kategori</label>
                 <select asp-for="CategoryId" class="form-control">
                     <option value="">Bir kategori seçin</option>
                     @foreach (var item in ViewBag.Categories as SelectList)
@@ -47,7 +47,7 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParentCategoryId" class="control-label"></label>
+                <label asp-for="ParentCategoryId" class="control-label">Alt Kategori</label>
                 <select asp-for="ParentCategoryId" class="form-control">
                     <option value="">Bir üst kategori seçin</option>
                     @foreach (var item in ViewBag.ParentCategories as SelectList)
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="TeamMember" class="control-label"></label>
+                <label asp-for="TeamMember" class="control-label">Proje Temsilcisi Ad Soyad</label>
                 <input asp-for="TeamMember" class="form-control" />
                 <span asp-validation-for="TeamMember" class="text-danger"></span>
             </div>
