@@ -1,0 +1,14 @@
+﻿@model IEnumerable<IdmhProject.Models.Project>
+
+<h2>@Model.FirstOrDefault()?.Category?.Name - Projeler</h2>
+
+<div class="project-list">
+    @foreach (var project in Model)
+    {
+        <div class="project-item">
+            <img src="@project.Image" alt="@project.Title" />
+            <h3>@project.Title</h3>
+            <p>@project.Description</p>
+        </div>
+    }
+</div>

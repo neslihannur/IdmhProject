@@ -4,6 +4,7 @@ using IdmhProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdmhProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022223016_AddProjectContent")]
+    partial class AddProjectContent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,10 @@ namespace IdmhProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
 
@@ -82,7 +89,7 @@ namespace IdmhProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoryies");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.ContactFormSubmission", b =>
@@ -135,6 +142,9 @@ namespace IdmhProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TeamMember")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -144,21 +154,6 @@ namespace IdmhProject.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.ProjectTeamMember", b =>
-                {
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamMemberId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProjectId", "TeamMemberId");
-
-                    b.HasIndex("TeamMemberId");
-
-                    b.ToTable("ProjectTeamMembers");
                 });
 
             modelBuilder.Entity("IdmhProject.Models.StaticContent", b =>
@@ -233,25 +228,6 @@ namespace IdmhProject.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("IdmhProject.Models.ProjectTeamMember", b =>
-                {
-                    b.HasOne("IdmhProject.Models.Project", "Project")
-                        .WithMany("ProjectTeamMembers")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IdmhProject.Models.TeamMember", "TeamMember")
-                        .WithMany("ProjectTeamMembers")
-                        .HasForeignKey("TeamMemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-
-                    b.Navigation("TeamMember");
-                });
-
             modelBuilder.Entity("IdmhProject.Models.Author", b =>
                 {
                     b.Navigation("Blogs");
@@ -260,16 +236,6 @@ namespace IdmhProject.Migrations
             modelBuilder.Entity("IdmhProject.Models.Category", b =>
                 {
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.Project", b =>
-                {
-                    b.Navigation("ProjectTeamMembers");
-                });
-
-            modelBuilder.Entity("IdmhProject.Models.TeamMember", b =>
-                {
-                    b.Navigation("ProjectTeamMembers");
                 });
 #pragma warning restore 612, 618
         }
