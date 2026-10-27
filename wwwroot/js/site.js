@@ -83,6 +83,8 @@
 
   // ---------- Sayfa geçişi (perde) ----------
   const curtain = $("[data-curtain]");
+  // CSS'teki translateY(100%) GSAP'te piksel olarak okunuyor; yüzdeyle sıfırdan başlat.
+  G.set(curtain, { y: 0, yPercent: 100 });
   document.addEventListener("click", e => {
     const a = e.target.closest("a");
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank" || a.hasAttribute("download")) return;
