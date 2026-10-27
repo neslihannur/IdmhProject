@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Görsel kaynakları";
+}
+<section class="page-head wrap">
+    <p class="eyebrow">( Görsel kaynakları )</p>
+    <h1 class="display-l" data-split>Fotoğraflar ve <em>lisanslar</em></h1>
+    <p class="page-lead">Bu site bir tasarım konseptidir. Kullanılan fotoğraflar temsilîdir ve Wikimedia Commons üzerinden serbest lisanslarla (CC0, CC BY, CC BY-SA, kamu malı) alınmıştır; sitede siyah-beyaz olarak gösterilir.</p>
+</section>
+<section class="wrap credits">
+    @foreach (var c in Credits.All)
+    {
+        <a href="@c.Source" target="_blank" rel="noopener" class="credit">
+            <img src="/img/@(c.File)-m.jpg" alt="" loading="lazy">
+            <span><strong>@c.Author</strong><small>@c.License · Wikimedia Commons ↗</small></span>
+        </a>
+    }
+</section>

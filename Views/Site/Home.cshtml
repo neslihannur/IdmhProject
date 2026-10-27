@@ -1,0 +1,152 @@
+@{
+    ViewData["Dark"] = true;
+    var projects = (List<Project>)ViewData["Projects"]!;
+    var posts = (List<JournalPost>)ViewData["Posts"]!;
+}
+
+<section class="hero" data-hero>
+    <div class="hero-grid wrap">
+        <p class="hero-kicker" data-fade>İstanbul — Mimari tasarım, iç mimarlık, mimari revizyon</p>
+        <h1 class="hero-title">
+            <span class="line"><span data-rise>Mekânı</span></span>
+            <span class="line indent"><span data-rise><em>sadeleştirir,</em></span></span>
+            <span class="line"><span data-rise>yaşamı</span></span>
+            <span class="line indent-2"><span data-rise>büyütürüz.</span></span>
+        </h1>
+        <div class="hero-side" data-fade>
+            <p>IDMH; konuttan ofise, otelden kamusal yapılara kadar her ölçekte, işlevi ve estetiği aynı masada düşünen bir mimarlık ofisi.</p>
+            <a href="/projeler" class="link-arrow">Projeleri gör <span class="arrow">→</span></a>
+        </div>
+        <div class="hero-scroll" data-fade><span>Kaydır</span><i></i></div>
+    </div>
+    <div class="hero-visual" data-hero-visual>
+        <div class="hero-visual-inner">
+            <img src="/img/white-house.jpg" alt="" data-hero-img fetchpriority="high">
+        </div>
+    </div>
+</section>
+
+<section class="intro wrap">
+    <p class="eyebrow">( Ofis )</p>
+    <p class="intro-text" data-words>Her proje bir soruyla başlar: bu mekânda kim, nasıl yaşayacak? Cevabı bulmak için önce dinliyor, sonra çiziyoruz. Işığı, malzemeyi ve oranı; gösteriş için değil, gündelik hayatı kolaylaştırmak için kullanıyoruz.</p>
+    <div class="intro-meta">
+        <div><span class="eyebrow">Disiplinler</span><p>Mimari Tasarım<br>İç Mimarlık<br>Mimari Revizyon</p></div>
+        <div><span class="eyebrow">Ölçek</span><p>Konut, ofis, konaklama,<br>yeme-içme ve kamusal yapılar</p></div>
+        <div><span class="eyebrow">Yaklaşım</span><p>Az ama doğru malzeme,<br>gün ışığı ve uzun ömür</p></div>
+    </div>
+</section>
+
+<section class="marquee-band" aria-hidden="true">
+    <div class="marquee" data-marquee>
+        <div class="marquee-track">
+            @for (var i = 0; i < 4; i++)
+            {
+                <span>Mimari Tasarım</span><i>✕</i><span class="outline">İç Mimarlık</span><i>✕</i><span>Mimari Revizyon</span><i>✕</i>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="selected">
+    <div class="wrap selected-head">
+        <p class="eyebrow">( Seçili projeler )</p>
+        <h2 class="display" data-split>Yapılar,<br><em>mekânlar,</em> izler.</h2>
+        <a href="/projeler" class="link-arrow">Tüm projeler <span class="arrow">→</span></a>
+    </div>
+    <div class="stack">
+        @for (var i = 0; i < projects.Count; i++)
+        {
+            var p = projects[i];
+            <article class="stack-item @(i % 2 == 1 ? "is-right" : "")">
+                <a href="/projeler/@p.Slug" class="stack-media" data-cursor-text="İncele">
+                    <div class="ph" data-reveal><img src="@p.Cover" alt="@p.Title" loading="lazy" data-parallax></div>
+                </a>
+                <div class="stack-text">
+                    <span class="stack-num">@((i + 1).ToString("00"))</span>
+                    <h3><a href="/projeler/@p.Slug">@p.Title</a></h3>
+                    <p class="muted">@p.Discipline · @p.Typology · @p.Location · @p.Year</p>
+                    <p>@p.Summary</p>
+                    <a href="/projeler/@p.Slug" class="link-arrow">Projeyi incele <span class="arrow">→</span></a>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+<section class="services-band is-dark-band">
+    <div class="wrap">
+        <div class="services-head">
+            <p class="eyebrow">( Hizmetler )</p>
+            <h2 class="display" data-split>Fikirden <em>anahtara.</em></h2>
+        </div>
+        <ul class="service-rows" data-hover-list>
+            @foreach (var (n, t, d, img, link) in new[] {
+                ("01", "Mimari Tasarım", "İhtiyaç programından ruhsata ve uygulama projesine; çevresiyle konuşan, işlevi ve estetiği dengeli yapılar.", "/img/brick-house-m.jpg", "Mimari Tasarım"),
+                ("02", "İç Mimarlık", "Ölçü, ışık, renk ve malzemeyle; mekânın kullanıcısının yaşam kalitesini artıran iç mekânlar ve özel mobilya.", "/img/hotel-room-m.jpg", "İç Mimarlık"),
+                ("03", "Mimari Revizyon", "Mevcut bir projeyi ya da yapıyı işlev, teknik detay ve görünüm açısından yeniden düzenleme.", "/img/housing-m.jpg", "Mimari Revizyon") })
+            {
+                <li>
+                    <a href="/hizmetler#@Text.Slugify(t)" class="service-row" data-img="@img">
+                        <span class="sr-num">@n</span>
+                        <span class="sr-title">@t</span>
+                        <span class="sr-desc">@d</span>
+                        <span class="sr-arrow">→</span>
+                    </a>
+                </li>
+            }
+        </ul>
+        <div class="hover-img" data-hover-img aria-hidden="true"><img alt=""></div>
+    </div>
+</section>
+
+<section class="process" data-process>
+    <div class="process-pin">
+        <div class="process-media">
+            @foreach (var img in new[] { "/img/sketch.jpg", "/img/plan.jpg", "/img/concrete-steps.jpg", "/img/stair-shadow.jpg", "/img/kitchen.jpg" })
+            {
+                <div class="process-img"><img src="@img" alt="" loading="lazy"></div>
+            }
+        </div>
+        <div class="process-text">
+            <p class="eyebrow">( Süreç )</p>
+            <ol class="process-steps">
+                @foreach (var (t, d) in new[] {
+                    ("Dinlemek", "Mekânı birlikte geziyor; alışkanlıkları, ihtiyaçları ve bütçeyi konuşuyoruz."),
+                    ("Ölçmek", "Rölöve, yapı ve tesisat analiziyle sürprizleri baştan ortadan kaldırıyoruz."),
+                    ("Kurgulamak", "Plan alternatifleri, malzeme paleti ve ışık çalışmasıyla projenin ruhunu belirliyoruz."),
+                    ("Detaylamak", "Uygulama projesi, özel mobilya çizimleri ve metrajlarla her şeyi netleştiriyoruz."),
+                    ("Teslim etmek", "Şantiyeyi düzenli ziyaretlerle takip ediyor, mekânı anahtar teslim ediyoruz.") })
+                {
+                    <li class="process-step"><h3>@t</h3><p>@d</p></li>
+                }
+            </ol>
+            <div class="process-progress"><span data-process-bar></span></div>
+        </div>
+    </div>
+</section>
+
+<section class="quote-band">
+    <div class="quote-img"><img src="/img/stone-stair.jpg" alt="" loading="lazy" data-parallax-strong></div>
+    <blockquote class="wrap">
+        <p data-words>“İyi bir mekân, içindekilerin her gün fark etmeden sevdiği yerdir.”</p>
+        <cite>IDMH — Tasarım yaklaşımımız</cite>
+    </blockquote>
+</section>
+
+<section class="journal-band wrap">
+    <div class="journal-head">
+        <p class="eyebrow">( Yazılar )</p>
+        <h2 class="display" data-split>Masadan <em>notlar.</em></h2>
+        <a href="/yazilar" class="link-arrow">Tüm yazılar <span class="arrow">→</span></a>
+    </div>
+    <div class="journal-grid">
+        @foreach (var p in posts)
+        {
+            <a href="/yazilar/@p.Slug" class="post-card" data-cursor-text="Oku" data-fade-up>
+                <div class="ph ph-43"><img src="@Text.Small(p.Cover)" alt="" loading="lazy"></div>
+                <div class="post-meta"><span>@p.Tag</span><span>@p.PublishedOn.ToString("d MMMM yyyy", Text.Tr)</span></div>
+                <h3>@p.Title</h3>
+            </a>
+        }
+    </div>
+</section>

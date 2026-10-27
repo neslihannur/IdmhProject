@@ -1,0 +1,87 @@
+@model InquiryForm
+@{
+    ViewData["Title"] = "İletişim";
+    var sent = Context.Request.Query["gonderildi"] == "1";
+}
+<section class="page-head wrap">
+    <p class="eyebrow">( İletişim )</p>
+    <h1 class="display-xl" data-split>Projenizi <em>konuşalım.</em></h1>
+</section>
+
+<section class="wrap contact">
+    <aside class="contact-info" data-fade-up>
+        <div><p class="eyebrow">Telefon</p><a href="tel:+905404364024" class="contact-big">+90 540 436 40 24</a></div>
+        <div><p class="eyebrow">E-posta</p><a href="mailto:info@idmh.com.tr" class="contact-big">info@idmh.com.tr</a></div>
+        <div><p class="eyebrow">Ofis</p><p>Abdurrahmangazi Mah. Fatih Bulvarı<br>No:71 Daire:1, Sultanbeyli / İstanbul</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Fatih+Bulvar%C4%B1+No%3A71+Sultanbeyli+%C4%B0stanbul" target="_blank" rel="noopener" class="link-arrow">Haritada aç <span class="arrow">↗</span></a></div>
+        <div><p class="eyebrow">Çalışma saatleri</p><p>Pazartesi – Cuma, 09:00 – 18:00<br>Cumartesi randevuyla</p></div>
+    </aside>
+
+    <div class="contact-form" id="form">
+        @if (sent)
+        {
+            <div class="sent" data-fade-up>
+                <p class="eyebrow">( Teşekkürler )</p>
+                <h2 class="display">Talebiniz bize <em>ulaştı.</em></h2>
+                <p class="lead">E-posta adresinize bir onay gönderdik. 2 iş günü içinde sizinle iletişime geçeceğiz.</p>
+                <a href="/projeler" class="btn-line">Projelere göz atın <span class="arrow">→</span></a>
+            </div>
+        }
+        else
+        {
+            <form method="post" action="/iletisim" asp-antiforgery="true" novalidate class="form">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="form-error" role="alert" asp-validation-summary="All"></div>
+                }
+                <fieldset>
+                    <legend>01 — Size nasıl yardımcı olabiliriz?</legend>
+                    <div class="chips">
+                        @foreach (var s in new[] { "Mimari Tasarım", "İç Mimarlık", "Mimari Revizyon", "Genel" })
+                        {
+                            <label class="chip"><input type="radio" name="Service" value="@s" checked="@(Model.Service == s || (Model.Service is null && s == "Genel"))"><span>@(s == "Genel" ? "Genel soru" : s)</span></label>
+                        }
+                    </div>
+                </fieldset>
+                <fieldset class="project-fields">
+                    <legend>02 — Proje</legend>
+                    <div class="grid-2">
+                        <label class="field"><span>Yapı türü</span>
+                            <select name="Typology">
+                                <option value="">Seçin</option>
+                                @foreach (var t in new[] { "Konut", "Villa / müstakil", "Ofis", "Otel / konaklama", "Restoran / kafe", "Mağaza", "Kamusal yapı", "Diğer" }) { <option selected="@(Model.Typology == t)">@t</option> }
+                            </select>
+                        </label>
+                        <label class="field"><span>Yaklaşık alan</span><input name="Area" value="@Model.Area" placeholder="örn. 180 m²"></label>
+                        <label class="field"><span>Konum</span><input name="Location" value="@Model.Location" placeholder="İlçe / şehir"></label>
+                        <label class="field"><span>Bütçe aralığı</span>
+                            <select name="Budget">
+                                <option value="">Belirtmek istemiyorum</option>
+                                @foreach (var b in new[] { "500 bin ₺ altı", "500 bin – 1,5 milyon ₺", "1,5 – 5 milyon ₺", "5 milyon ₺ üzeri" }) { <option selected="@(Model.Budget == b)">@b</option> }
+                            </select>
+                        </label>
+                        <label class="field span-2"><span>Ne zaman başlamak istiyorsunuz?</span>
+                            <select name="Timeline">
+                                <option value="">Seçin</option>
+                                @foreach (var t in new[] { "Hemen", "1–3 ay içinde", "3–6 ay içinde", "Henüz belli değil" }) { <option selected="@(Model.Timeline == t)">@t</option> }
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>03 — İletişim bilgileri</legend>
+                    <div class="grid-2">
+                        <label class="field"><span>Ad soyad *</span><input name="Name" value="@Model.Name" required autocomplete="name"></label>
+                        <label class="field"><span>E-posta *</span><input name="Email" type="email" value="@Model.Email" required autocomplete="email"></label>
+                        <label class="field"><span>Telefon</span><input name="Phone" type="tel" value="@Model.Phone" autocomplete="tel" placeholder="05xx xxx xx xx"></label>
+                        <label class="field span-2"><span>Projenizden kısaca bahsedin *</span><textarea name="Message" rows="5" required>@Model.Message</textarea></label>
+                    </div>
+                    <label class="consent"><input type="checkbox" name="Consent" value="true" checked="@Model.Consent"><span><a href="/kvkk" class="u" target="_blank">Aydınlatma metnini</a> okudum; bilgilerimin bu talep için işlenmesini kabul ediyorum.</span></label>
+                    <input type="hidden" name="Consent" value="false">
+                    <div class="hp" aria-hidden="true"><input name="Website" tabindex="-1" autocomplete="off"></div>
+                </fieldset>
+                <button class="btn-circle magnetic" type="submit"><span>Gönder</span></button>
+            </form>
+        }
+    </div>
+</section>

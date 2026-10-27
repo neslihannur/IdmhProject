@@ -1,0 +1,52 @@
+@model Project
+@{
+    var isNew = Model.Id == 0;
+    ViewData["Title"] = isNew ? "Yeni proje" : Model.Title;
+}
+@section Actions {
+    @if (!isNew)
+    {
+        <a href="/projeler/@Model.Slug" target="_blank" class="btn ghost">Sitede gör ↗</a>
+        <form method="post" action="/yonetim/projeler/@Model.Id/sil" asp-antiforgery="true" onsubmit="return confirm('Proje silinsin mi?')"><button class="btn ghost">Sil</button></form>
+    }
+}
+<a href="/yonetim/projeler" class="back">← Projeler</a>
+@if (ViewData["Error"] is string e) { <div class="alert">@e</div> }
+<form method="post" action="@(isNew ? "/yonetim/projeler/yeni" : $"/yonetim/projeler/{Model.Id}")" asp-antiforgery="true" enctype="multipart/form-data" class="two-col">
+    <section class="card form">
+        <label>Proje adı <input name="Title" value="@Model.Title" required></label>
+        <label>Adres (boş bırakılırsa addan üretilir) <input name="Slug" value="@Model.Slug"></label>
+        <div class="row3">
+            <label>Disiplin
+                <select name="Discipline">@foreach (var d in new[] { "Mimarlık", "İç Mimarlık", "Mimari Revizyon" }) { <option selected="@(Model.Discipline == d)">@d</option> }</select>
+            </label>
+            <label>Yapı türü <input name="Typology" value="@Model.Typology" placeholder="Konut, ofis…"></label>
+            <label>Durum <input name="Status" value="@Model.Status" placeholder="Tamamlandı"></label>
+            <label>Konum <input name="Location" value="@Model.Location"></label>
+            <label>Yıl <input name="Year" value="@Model.Year"></label>
+            <label>Alan <input name="Area" value="@Model.Area" placeholder="320 m²"></label>
+        </div>
+        <label>Kısa özet <textarea name="Summary" rows="2">@Model.Summary</textarea></label>
+        <label>Metin (boş satır = yeni paragraf, "## " ara başlık, "> " alıntı) <textarea name="Body" rows="14">@Model.Body</textarea></label>
+    </section>
+    <section class="card form">
+        <label class="check"><input type="checkbox" name="IsPublished" value="true" checked="@Model.IsPublished"> Yayında</label>
+        <input type="hidden" name="IsPublished" value="false">
+        <label class="check"><input type="checkbox" name="IsFeatured" value="true" checked="@Model.IsFeatured"> Ana sayfada göster</label>
+        <input type="hidden" name="IsFeatured" value="false">
+        <label>Sıra <input name="SortOrder" type="number" value="@Model.SortOrder"></label>
+        <div>
+            <p class="label">Kapak görseli</p>
+            @if (!string.IsNullOrEmpty(Model.Cover)) { <img src="@Text.Small(Model.Cover)" alt="" class="preview"> }
+            <input type="hidden" name="Cover" value="@Model.Cover">
+            <input type="file" name="coverFile" accept="image/jpeg,image/png,image/webp">
+        </div>
+        <div>
+            <p class="label">Galeri (her satırda bir görsel adresi; silmek için satırı silin)</p>
+            <div class="thumbs">@foreach (var g in Model.Gallery) { <img src="@Text.Small(g)" alt=""> }</div>
+            <textarea name="galleryText" rows="4">@string.Join("\n", Model.Gallery)</textarea>
+            <input type="file" name="galleryFiles" accept="image/jpeg,image/png,image/webp" multiple>
+        </div>
+        <button class="btn block">Kaydet</button>
+    </section>
+</form>

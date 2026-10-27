@@ -1,0 +1,17 @@
+@model List<Inquiry>
+<table class="table">
+    <thead><tr><th></th><th>Kişi</th><th>Hizmet</th><th>Proje</th><th>Tarih</th></tr></thead>
+    <tbody>
+    @foreach (var q in Model)
+    {
+        <tr onclick="location.href='/yonetim/talepler/@q.Id'" class="@(q.IsRead ? "" : "unread")">
+            <td>@if (!q.IsRead) { <span class="dot"></span> }</td>
+            <td><strong>@q.Name</strong><small>@q.Email</small></td>
+            <td>@(q.Service ?? "Genel")</td>
+            <td>@string.Join(" · ", new[] { q.Typology, q.Area, q.Location }.Where(x => !string.IsNullOrEmpty(x)))<small>@(q.Message.Length > 70 ? q.Message[..70] + "…" : q.Message)</small></td>
+            <td>@q.CreatedAt.AddHours(3).ToString("d MMM yyyy HH:mm", Text.Tr)</td>
+        </tr>
+    }
+    @if (Model.Count == 0) { <tr><td colspan="5" class="empty">Henüz talep yok. Sitedeki iletişim formu doldurulunca burada görünür.</td></tr> }
+    </tbody>
+</table>

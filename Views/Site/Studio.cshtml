@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Ofis";
+}
+<section class="page-head wrap">
+    <p class="eyebrow">( Ofis )</p>
+    <h1 class="display-xl" data-split>Az söz, <em>çok çizgi.</em></h1>
+</section>
+
+<section class="studio-hero">
+    <div class="ph" data-reveal><img src="/img/columns.jpg" alt="" data-parallax></div>
+</section>
+
+<section class="wrap studio-intro">
+    <p class="intro-text" data-words>İbrahim Durmaz Mimarlık Hizmetleri (IDMH); iç mekân tasarımında sanatı, işlevselliği ve estetiği bir araya getiren, mimari ölçekte ise yapıyı çevresiyle birlikte düşünen bir tasarım ofisi.</p>
+    <div class="studio-cols" data-fade-up>
+        <p>Her projede kullanıcının yaşam tarzını ve ihtiyaçlarını anlamaya odaklanıyoruz. Evlerden ticari alanlara kadar farklı ölçekteki projelerde, detaylara gösterilen özenin mekânın kalitesini belirlediğine inanıyoruz.</p>
+        <p>Amacımız yalnızca görsel olarak etkileyici değil; aynı zamanda işlevsel, sürdürülebilir ve uzun yıllar keyifle kullanılacak yaşam alanları oluşturmak. Bunun için az ama doğru malzemeyle çalışıyor, gün ışığını tasarımın merkezine alıyoruz.</p>
+    </div>
+</section>
+
+<section class="values is-dark-band">
+    <div class="wrap">
+        <p class="eyebrow">( İlkeler )</p>
+        <div class="values-grid">
+            @foreach (var (n, t, d) in new[] {
+                ("01", "Önce dinlemek", "Çizmeye başlamadan önce mekânı ve kullanıcısını tanırız. İyi bir brief, iyi bir projenin yarısıdır."),
+                ("02", "Işık", "Yön, pencere ve gölge; planın ilk eskizinden itibaren tasarımın bir parçasıdır."),
+                ("03", "Malzeme dürüstlüğü", "Beton beton, ahşap ahşap gibi görünür. Yüzeyler zamanla eskimez, olgunlaşır."),
+                ("04", "Detay", "Bir kapı kolu, bir süpürgelik, bir derz… Mekânın kalitesi en küçük çizgide saklıdır."),
+                ("05", "Şeffaf süreç", "Takvim, bütçe ve kararlar her aşamada yazılı ve açıktır."),
+                ("06", "Uzun ömür", "Moda olanı değil, yıllarca keyifle kullanılacak olanı tasarlarız.") })
+            {
+                <div class="value" data-fade-up><span>@n</span><h3>@t</h3><p>@d</p></div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="wrap studio-split">
+    <div class="ph ph-45" data-reveal><img src="/img/sketch.jpg" alt="" loading="lazy" data-parallax></div>
+    <div>
+        <p class="eyebrow">( Çalışma biçimi )</p>
+        <h2 class="display" data-split>Eskizden <em>şantiyeye.</em></h2>
+        <p class="lead" data-fade-up>Projeleri, ilk eskizden uygulamanın son gününe kadar aynı ekip takip ediyor. Usta ve tedarikçilerle uzun soluklu iş birliklerimiz, çizimdeki fikrin sahada da aynı kalmasını sağlıyor.</p>
+        <a href="/iletisim" class="btn-line">Tanışalım <span class="arrow">→</span></a>
+    </div>
+</section>

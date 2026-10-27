@@ -1,0 +1,35 @@
+@model JournalPost
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Excerpt;
+    var more = (List<JournalPost>)ViewData["More"]!;
+}
+<article>
+    <header class="post-head wrap">
+        <a href="/yazilar" class="back">← Yazılar</a>
+        <div class="post-meta"><span>@Model.Tag</span><span>@Model.PublishedOn.ToString("d MMMM yyyy", Text.Tr)</span><span>@Model.ReadMinutes dk okuma</span></div>
+        <h1 class="display-l" data-split>@Model.Title</h1>
+        <p class="lead" data-fade>@Model.Excerpt</p>
+    </header>
+    <div class="post-cover"><div class="ph" data-reveal><img src="@Model.Cover" alt="" data-parallax></div></div>
+    <div class="wrap post-body">
+        <div class="prose prose-l">@Text.Paragraphs(Model.Body)</div>
+    </div>
+</article>
+
+@if (more.Count > 0)
+{
+    <section class="wrap journal-more">
+        <p class="eyebrow">( Diğer yazılar )</p>
+        <div class="journal-grid two">
+            @foreach (var p in more)
+            {
+                <a href="/yazilar/@p.Slug" class="post-card" data-cursor-text="Oku" data-fade-up>
+                    <div class="ph ph-43"><img src="@Text.Small(p.Cover)" alt="" loading="lazy"></div>
+                    <div class="post-meta"><span>@p.Tag</span><span>@p.PublishedOn.ToString("d MMMM yyyy", Text.Tr)</span></div>
+                    <h3>@p.Title</h3>
+                </a>
+            }
+        </div>
+    </section>
+}

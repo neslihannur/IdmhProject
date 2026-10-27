@@ -1,0 +1,22 @@
+@model Inquiry
+@{ ViewData["Title"] = Model.Kind == "teklif" ? "Teklif talebi" : "Mesaj"; }
+@section Actions {
+    <form method="post" action="/yonetim/talepler/@Model.Id/sil" asp-antiforgery="true" onsubmit="return confirm('Talep silinsin mi?')"><button class="btn ghost">Sil</button></form>
+}
+<a href="/yonetim/talepler" class="back">← Talepler</a>
+<div class="two-col">
+    <section class="card"><h2>@Model.Name</h2><p class="message">@Model.Message</p></section>
+    <section class="card">
+        <dl class="kv">
+            <dt>E-posta</dt><dd><a href="mailto:@Model.Email" class="link">@Model.Email</a></dd>
+            @if (Model.Phone is not null) { <dt>Telefon</dt><dd><a href="tel:@Model.Phone" class="link">@Model.Phone</a></dd> }
+            <dt>Hizmet</dt><dd>@(Model.Service ?? "Genel")</dd>
+            @foreach (var (k, v) in new[] { ("Yapı türü", Model.Typology), ("Alan", Model.Area), ("Konum", Model.Location), ("Bütçe", Model.Budget), ("Zamanlama", Model.Timeline) })
+            {
+                if (!string.IsNullOrEmpty(v)) { <dt>@k</dt><dd>@v</dd> }
+            }
+            <dt>Tarih</dt><dd>@Model.CreatedAt.AddHours(3).ToString("d MMMM yyyy HH:mm", Text.Tr)</dd>
+        </dl>
+        <a href="mailto:@Model.Email?subject=@Uri.EscapeDataString("IDMH — " + (Model.Service ?? "Talebiniz"))" class="btn block">Yanıtla</a>
+    </section>
+</div>

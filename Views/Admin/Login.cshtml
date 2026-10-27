@@ -1,0 +1,12 @@
+@model string?
+@{ ViewData["Title"] = "Giriş"; }
+<div class="login">
+    <form method="post" action="/yonetim/giris" asp-antiforgery="true" class="login-card">
+        <div class="logo dark">IDMH <small>Yönetim</small></div>
+        @if (ViewData["Error"] is string e) { <div class="alert">@e</div> }
+        <input type="hidden" name="returnUrl" value="@Model">
+        <label>E-posta <input name="email" type="email" required autofocus autocomplete="username"></label>
+        <label>Şifre <input name="password" type="password" required autocomplete="current-password"></label>
+        <button class="btn">Giriş yap</button>
+    </form>
+</div>

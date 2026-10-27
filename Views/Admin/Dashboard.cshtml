@@ -1,0 +1,13 @@
+@model List<Inquiry>
+@{ ViewData["Title"] = "Pano"; }
+<div class="kpis">
+    <a href="/yonetim/talepler" class="kpi dark"><span>Okunmamış talep</span><strong>@ViewData["Unread"]</strong></a>
+    <div class="kpi"><span>Son 30 gün talep</span><strong>@ViewData["Month"]</strong></div>
+    <a href="/yonetim/projeler" class="kpi"><span>Proje</span><strong>@ViewData["ProjectCount"]</strong></a>
+    <a href="/yonetim/yazilar" class="kpi"><span>Yazı</span><strong>@ViewData["PostCount"]</strong></a>
+</div>
+@if ((int)ViewData["Failed"]! > 0) { <div class="alert">@ViewData["Failed"] e-posta gönderilemedi. SMTP ayarlarını kontrol edin.</div> }
+<section class="card">
+    <div class="card-head"><h2>Son talepler</h2><a href="/yonetim/talepler" class="link">Tümü →</a></div>
+    <partial name="_InquiryTable" model="Model" />
+</section>

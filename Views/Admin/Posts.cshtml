@@ -1,0 +1,19 @@
+@model List<JournalPost>
+@{ ViewData["Title"] = "Yazılar"; }
+@section Actions { <a href="/yonetim/yazilar/yeni" class="btn">+ Yeni yazı</a> }
+<section class="card">
+<table class="table">
+    <thead><tr><th>Yazı</th><th>Etiket</th><th>Tarih</th><th>Durum</th></tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr onclick="location.href='/yonetim/yazilar/@p.Id'">
+            <td><div class="cell-img"><img src="@Text.Small(p.Cover)" alt=""><div><strong>@p.Title</strong><small>/yazilar/@p.Slug</small></div></div></td>
+            <td>@p.Tag</td>
+            <td>@p.PublishedOn.ToString("d MMM yyyy", Text.Tr)</td>
+            <td>@(p.IsPublished ? "Yayında" : "Taslak")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</section>

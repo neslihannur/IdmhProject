@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Hizmetler";
+    var services = new (string Title, string Img, string Lead, string[] Items, string[] Deliver)[]
+    {
+        ("Mimari Tasarım", "/img/brick-house.jpg",
+            "Yaşam alanlarını ve yapıları; işlevi, kullanıcı ihtiyaçlarını ve çevreyi dengeleyerek tasarlıyoruz. Arsanın potansiyelini okuyup ihtiyaç programını mekâna dönüştürüyoruz.",
+            ["Arazi ve imar analizi", "Konsept ve avan proje", "Ruhsat projesi", "Uygulama projesi ve detaylar", "Disiplinler arası koordinasyon"],
+            ["Vaziyet, kat planları, kesit ve görünüşler", "3B modeller ve görselleştirmeler", "Metraj ve maliyet tahmini"]),
+        ("İç Mimarlık", "/img/hotel-room.jpg",
+            "Ölçü, ışık, renk uyumu ve malzeme seçimiyle mekânın estetiğini ve işlevini birlikte ele alıyoruz. Konuttan otele, ofisten restorana kadar her iç mekânı kullanıcısına göre kurguluyoruz.",
+            ["İhtiyaç programı ve rölöve", "Konsept ve malzeme paleti", "Aydınlatma tasarımı", "Özel mobilya tasarımı", "Uygulama takibi ve anahtar teslim"],
+            ["Mobilyalı planlar ve açılımlar", "Aydınlatma ve elektrik planları", "Malzeme ve ürün listeleri"]),
+        ("Mimari Revizyon", "/img/housing.jpg",
+            "Mevcut bir projeyi ya da yapıyı işlev, teknik detay ve görünüm açısından yeniden düzenliyoruz. Ruhsatlı projelerde değişiklik, cephe yenileme ve kullanım dönüşümü çalışmaları yürütüyoruz.",
+            ["Mevcut durum ve yapı analizi", "Plan ve işlev revizyonu", "Cephe ve yalıtım yenileme", "Tadilat projesi ve ruhsat süreçleri", "Aşamalı uygulama planlaması"],
+            ["Revizyon projesi ve karşılaştırmalı çizimler", "Uygulama takvimi", "Yasal süreç danışmanlığı"]),
+    };
+}
+<section class="page-head wrap">
+    <p class="eyebrow">( Hizmetler )</p>
+    <h1 class="display-xl" data-split>Üç disiplin, <em>tek masa.</em></h1>
+    <p class="page-lead" data-fade>Mimari tasarım, iç mimarlık ve revizyon işlerini aynı ekip yürüttüğünde; kararlar daha tutarlı, süreç daha kısa olur.</p>
+</section>
+
+@for (var i = 0; i < services.Length; i++)
+{
+    var s = services[i];
+    <section class="service wrap @(i % 2 == 1 ? "is-flip" : "")" id="@Text.Slugify(s.Title)">
+        <div class="service-media"><div class="ph" data-reveal><img src="@s.Img" alt="" loading="lazy" data-parallax></div></div>
+        <div class="service-text">
+            <span class="stack-num">@((i + 1).ToString("00"))</span>
+            <h2 class="display" data-split>@s.Title</h2>
+            <p class="lead" data-fade-up>@s.Lead</p>
+            <div class="service-lists" data-fade-up>
+                <div>
+                    <p class="eyebrow">Kapsam</p>
+                    <ul>@foreach (var it in s.Items) { <li>@it</li> }</ul>
+                </div>
+                <div>
+                    <p class="eyebrow">Teslim edilenler</p>
+                    <ul>@foreach (var it in s.Deliver) { <li>@it</li> }</ul>
+                </div>
+            </div>
+            <a href="/iletisim?hizmet=@Uri.EscapeDataString(s.Title)#form" class="btn-line">@s.Title için teklif al <span class="arrow">→</span></a>
+        </div>
+    </section>
+}
+
+<section class="faq wrap">
+    <div>
+        <p class="eyebrow">( Sık sorulanlar )</p>
+        <h2 class="display" data-split>Merak <em>edilenler</em></h2>
+    </div>
+    <div class="faq-list">
+        @foreach (var (q, a) in new[] {
+            ("Bir projeye ne zaman başlayabiliriz?", "İlk görüşmeyi genellikle bir hafta içinde planlıyoruz. Rölöve ve ihtiyaç programının ardından konsept çalışması ortalama 2–4 hafta sürer."),
+            ("Ücretlendirme nasıl yapılıyor?", "Ücret; projenin ölçeğine, kapsamına ve teslim edilecek çizim setine göre belirlenir. İlk görüşmeden sonra kalem kalem bir teklif sunuyoruz."),
+            ("Sadece çizim mi yapıyorsunuz, uygulamayı da üstleniyor musunuz?", "Uygulama projesinin yanında usta ve tedarikçi koordinasyonu ile şantiye takibini de üstlenebiliyoruz; anahtar teslim seçeneği mevcut."),
+            ("İstanbul dışındaki projelerle çalışıyor musunuz?", "Evet. Ege ve İç Anadolu'da da projelerimiz var; şantiye ziyaretlerini proje takvimine göre planlıyoruz."),
+            ("Ruhsat süreçlerinde destek veriyor musunuz?", "Ruhsat projesi hazırlığı ve belediye süreçlerinin takibi mimari tasarım ve revizyon hizmetlerimizin parçasıdır.") })
+        {
+            <details class="faq-item"><summary>@q<span class="plus"></span></summary><div class="faq-body"><p>@a</p></div></details>
+        }
+    </div>
+</section>

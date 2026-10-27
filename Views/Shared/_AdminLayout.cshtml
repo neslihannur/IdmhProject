@@ -1,152 +1,48 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@{
+    var path = Context.Request.Path.Value ?? "";
+    string A(string p, bool exact = false) => (exact ? path == p : path.StartsWith(p)) ? "is-active" : "";
+    var flash = TempData["Flash"] as string;
+}
+<!doctype html>
+<html lang="tr">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - IdmhProject</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/IdmhProject.styles.css" asp-append-version="true" />
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
-    <style>
-        /* Üst Bar Stili */
-        .navbar {
-            background-color: #333; /* Arka plan rengi */
-        }
-
-        .bardaki-yazi {
-            font-family: 'Arial', sans-serif; /* Yazı tipi */
-            font-size: 18px; /* Yazı boyutu */
-            font-weight: normal; /* Yazı kalınlığı daha ince */
-            text-transform: uppercase; /* Büyük harf */
-            letter-spacing: 1px; /* Harf aralığı */
-            color: #786f6f; /* Yazı rengi değiştirildi */
-        }
-
-            .bardaki-yazi:hover {
-                filter: blur(2px);
-                color: #d5d2d2; /* Daha açık gri renk */
-            }
-
-        .navbar .navbar-brand,
-        .navbar .nav-link {
-            color: #d5d2d2; /* Yazı rengi */
-        }
-
-            .navbar .nav-link:hover {
-                background-color: rgba(211, 211, 211, 0.5); /* Açık gri arka plan */
-                color: #b0b0b0; /* Daha açık gri renk */
-            }
-
-        .carousel-inner img {
-            max-height: 300px; /* Yükseklik ayarı */
-            width: 70%; /* Genişlik ayarı, yanlarda boşluk oluşturacak */
-            margin: auto; /* Resmi ortalamak için */
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            background: none; /* Arka plan rengi kaldırıldı */
-            width: 50px; /* Ok genişliği */
-            height: 50px; /* Ok yüksekliği */
-            top: 50%; /* Dikey merkezleme */
-            transform: translateY(-50%); /* Dikey merkezleme için düzeltme */
-        }
-
-        .carousel-control-prev {
-            left: 10px; /* Sol ok konumu */
-        }
-
-        .carousel-control-next {
-            right: 10px; /* Sağ ok konumu */
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background: none; /* Arka plan rengi kaldırıldı */
-            color: black; /* Ok rengi siyah */
-            font-size: 2rem; /* Ok boyutu */
-        }
-
-            .carousel-control-prev-icon::after {
-                content: '‹'; /* Sol ok simgesi */
-                font-size: 3rem; /* Ok boyutu */
-                color: black; /* Ok rengi siyah */
-            }
-
-            .carousel-control-next-icon::after {
-                content: '›'; /* Sağ ok simgesi */
-                font-size: 3rem; /* Ok boyutu */
-                color: black; /* Ok rengi siyah */
-            }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>@ViewData["Title"] — IDMH Yönetim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Admin" asp-controller="Projects" asp-action="Home">
-                    <img src="~/Logo/Logo-ımdh.jpg" alt="Logo" style="max-height: 50px;" />
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Index">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Projects" asp-action="Index">Proje</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="/About/Index" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Hakkımızda
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="About" asp-action="Index">Ekip</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="About" asp-action="Career">Kariyer</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- Logout Button aligned to the right -->
-                    <div class="ms-auto">
-                        <!-- ms-auto is Bootstrap's margin-start auto utility -->
-                        <a class="nav-link text-primary" asp-area="Admin" asp-controller="Projects" asp-action="Logout">
-                            <!-- SVG icon for logout -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                            </svg>
-                            Çıkış Yap
-                        </a>
-                    </div>
-                </div>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="adm">
+        <aside class="side">
+            <a href="/yonetim" class="logo">IDMH <small>Yönetim</small></a>
+            <nav>
+                <a href="/yonetim" class="@A("/yonetim", true)">Pano</a>
+                <a href="/yonetim/projeler" class="@A("/yonetim/projeler")">Projeler</a>
+                <a href="/yonetim/yazilar" class="@A("/yonetim/yazilar")">Yazılar</a>
+                <a href="/yonetim/talepler" class="@A("/yonetim/talepler")">Talepler</a>
+                <a href="/yonetim/sifre" class="@A("/yonetim/sifre")">Şifre</a>
+            </nav>
+            <div class="side-foot">
+                <a href="/" target="_blank">Siteyi aç ↗</a>
+                <form method="post" action="/yonetim/cikis" asp-antiforgery="true"><button>Çıkış</button></form>
             </div>
-        </nav>
-    </header>
-
-
-    <div class="container">
-        <main role="main" class="pb-3">
+        </aside>
+        <main class="main">
+            <header class="top"><h1>@ViewData["Title"]</h1>@RenderSection("Actions", required: false)</header>
+            @if (flash is not null) { <div class="flash">@flash</div> }
             @RenderBody()
         </main>
     </div>
-
-    
-   @RenderSection("Scripts", required: false) <!-- Scripts section'ını render etmek -->
-@* 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> *@
-  
-
+}
+else
+{
+    @RenderBody()
+}
 </body>
 </html>

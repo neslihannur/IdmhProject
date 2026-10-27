@@ -1,0 +1,9 @@
+@model int
+@{
+    ViewData["Title"] = Model == 404 ? "Sayfa bulunamadı" : "Hata";
+}
+<section class="error wrap">
+    <span class="error-code">@Model</span>
+    <h1 class="display-l">@(Model == 404 ? "Bu kapı bir yere açılmıyor." : Model == 429 ? "Biraz yavaşlayalım." : "Bir şeyler ters gitti.")</h1>
+    <a href="/" class="btn-line">Ana sayfaya dön <span class="arrow">→</span></a>
+</section>

@@ -1,0 +1,55 @@
+@model ProjectPage
+@{
+    var p = Model.Project;
+    ViewData["Title"] = p.Title;
+    ViewData["Description"] = p.Summary;
+    ViewData["Dark"] = true;
+}
+<section class="project-hero">
+    <div class="project-hero-img"><img src="@p.Cover" alt="@p.Title" data-hero-img></div>
+    <div class="project-hero-text wrap">
+        <p class="hero-kicker" data-fade>@p.Discipline — @p.Typology</p>
+        <h1 class="display-xl" data-split>@p.Title</h1>
+    </div>
+</section>
+
+<section class="wrap project-info">
+    <dl class="facts" data-fade-up>
+        <div><dt>Konum</dt><dd>@p.Location</dd></div>
+        <div><dt>Yıl</dt><dd>@p.Year</dd></div>
+        <div><dt>Alan</dt><dd>@p.Area</dd></div>
+        <div><dt>Disiplin</dt><dd>@p.Discipline</dd></div>
+        <div><dt>Durum</dt><dd>@p.Status</dd></div>
+    </dl>
+    <div class="project-body">
+        <p class="lead" data-words>@p.Summary</p>
+        <div class="prose" data-fade-up>@Text.Paragraphs(p.Body)</div>
+    </div>
+</section>
+
+@if (p.Gallery.Count > 0)
+{
+    <section class="gallery wrap">
+        @for (var i = 0; i < p.Gallery.Count; i++)
+        {
+            <figure class="gallery-item @(i % 3 == 0 || (i == p.Gallery.Count - 1 && i % 3 == 1) ? "is-full" : "")">
+                <div class="ph" data-reveal><img src="@p.Gallery[i]" alt="@p.Title — görsel @(i + 1)" loading="lazy" data-parallax></div>
+            </figure>
+        }
+    </section>
+}
+
+<section class="wrap">
+    <p class="disclaimer">Görseller temsilîdir · <a href="/gorsel-kaynaklari" class="u">Görsel kaynakları</a></p>
+</section>
+
+@if (Model.Next is { } n && n.Id != p.Id)
+{
+    <a href="/projeler/@n.Slug" class="next-project" data-cursor-text="Sonraki">
+        <div class="next-img"><img src="@n.Cover" alt="" loading="lazy"></div>
+        <div class="wrap next-text">
+            <span class="eyebrow">Sonraki proje</span>
+            <span class="next-title">@n.Title</span>
+        </div>
+    </a>
+}

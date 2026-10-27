@@ -1,0 +1,35 @@
+@model List<JournalPost>
+@{
+    ViewData["Title"] = "Yazılar";
+    var first = Model.FirstOrDefault();
+}
+<section class="page-head wrap">
+    <p class="eyebrow">( Yazılar · @Model.Count )</p>
+    <h1 class="display-xl" data-split>Masadan <em>notlar</em></h1>
+</section>
+
+@if (first is not null)
+{
+    <section class="wrap">
+        <a href="/yazilar/@first.Slug" class="post-feature" data-cursor-text="Oku">
+            <div class="ph" data-reveal><img src="@first.Cover" alt="" data-parallax></div>
+            <div class="post-feature-text">
+                <div class="post-meta"><span>@first.Tag</span><span>@first.PublishedOn.ToString("d MMMM yyyy", Text.Tr)</span><span>@first.ReadMinutes dk</span></div>
+                <h2 class="display">@first.Title</h2>
+                <p class="lead">@first.Excerpt</p>
+            </div>
+        </a>
+    </section>
+}
+
+<section class="wrap journal-grid">
+    @foreach (var p in Model.Skip(1))
+    {
+        <a href="/yazilar/@p.Slug" class="post-card" data-cursor-text="Oku" data-fade-up>
+            <div class="ph ph-43"><img src="@Text.Small(p.Cover)" alt="" loading="lazy"></div>
+            <div class="post-meta"><span>@p.Tag</span><span>@p.PublishedOn.ToString("d MMMM yyyy", Text.Tr)</span></div>
+            <h3>@p.Title</h3>
+            <p class="muted">@p.Excerpt</p>
+        </a>
+    }
+</section>

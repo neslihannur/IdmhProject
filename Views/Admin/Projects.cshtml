@@ -1,0 +1,20 @@
+@model List<Project>
+@{ ViewData["Title"] = "Projeler"; }
+@section Actions { <a href="/yonetim/projeler/yeni" class="btn">+ Yeni proje</a> }
+<section class="card">
+<table class="table">
+    <thead><tr><th>Proje</th><th>Disiplin</th><th>Konum</th><th>Yıl</th><th>Durum</th></tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr onclick="location.href='/yonetim/projeler/@p.Id'">
+            <td><div class="cell-img"><img src="@Text.Small(p.Cover)" alt=""><div><strong>@p.Title</strong><small>/projeler/@p.Slug</small></div></div></td>
+            <td>@p.Discipline<small>@p.Typology</small></td>
+            <td>@p.Location</td>
+            <td>@p.Year</td>
+            <td>@(p.IsPublished ? "Yayında" : "Taslak")@(p.IsFeatured ? " · Ana sayfa" : "")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</section>
